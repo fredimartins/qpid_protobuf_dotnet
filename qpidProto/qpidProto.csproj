@@ -176,6 +176,25 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)..\lib\qpidtypesd.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\qpidmessagingd.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\qpidcommond.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\qpidclientd.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\org.apache.qpid.messaging.sessionreceiver.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\org.apache.qpid.messaging.dlll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\Google.ProtocolBuffers.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_thread-vc120-mt-gd-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_thread-vc120-mt-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_system-vc120-mt-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_system-vc120-mt-gd-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_program_options-vc120-mt-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_program_options-vc120-mt-gd-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_date_time-vc120-mt-gd-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_date_time-vc120-mt-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_chrono-vc120-mt-1_59.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y "$(ProjectDir)..\lib\boost_chrono-vc120-mt-gd-1_59.dll" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
