@@ -3,6 +3,7 @@ Projeto de exemplo .NET para conexão em uma fila no Qpid para obter dados e des
 
 - Visual Studio 2013 (msvc-12.0)
 - AMQP 0-10 (Qpid 0.24) e Google Protobuf 2.5.0
+- Exemplo em Debug x64
 
 ## [Dependências] ##
 Bibliotecas utilizadas
@@ -90,5 +91,4 @@ ou para (Win64)
 
 
 ## [Pasta Lib] ##
-As Bibliotecas já compiladas estão na pasta lib, se não conseguir executar o programa, copie as bibliotecas para a pasta de compilação ex: qpid_protobuf_dotnet\qpidProto\bin\x64\Debug
-Teste feito em Debug x64
+As Bibliotecas já compiladas estão na pasta lib (Debug x64)
