@@ -1,0 +1,98 @@
+package maxtrack.pb.mtc550satamatics;
+
+// option java_package = "maxtrack.xxx.xx";
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message mtc550satamatics_u_firmware
+{
+	required uint32 protocol                         = 1;	// Device Protocol
+	required string sat_id							 = 2;
+}
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message mtc550satamatics_u_gps_modem_sad69_datum
+{
+	required double latitude_sad69		= 1;
+	required double longitude_sad69		= 2;
+}
+
+message mtc550satamatics_u_gps_modem_utm_coordinate
+{
+	required string utm					= 1;
+	required double easting				= 2;
+	required double northing			= 3;
+}
+
+
+message mtc550satamatics_u_gps_modem
+{
+	required string date                              = 1; // time_t LEMBRAR DE CONVERTER
+	required double latitude                          = 2;
+	required double longitude                         = 3;
+	optional double speed                             = 4;
+	optional uint32 hodometer                         = 5;
+	optional uint32 course                            = 6;
+	optional bool jammer                              = 7;
+	optional mtc550satamatics_u_gps_modem_sad69_datum sad69_datum			= 8;
+	optional mtc550satamatics_u_gps_modem_utm_coordinate utm_coordinate	= 9;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message mtc550satamatics_u_inputs
+{
+	required bool input_1  = 1;
+	required bool input_2  = 2;
+	required bool input_3  = 3;
+	required bool input_4  = 4;
+	required bool input_5  = 5;
+	required bool input_6  = 6;
+	required bool input_7  = 7;
+	required bool panic    = 8;
+	
+}
+
+message mtc550satamatics_u_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+	required bool output_4 = 4;
+}
+
+message mtc550satamatics_u_hardware_monitor
+{
+	required mtc550satamatics_u_inputs inputs                       = 1;
+	required mtc550satamatics_u_outputs outputs                     = 2;
+	required uint32 ad2                                             = 3;
+	required uint32 ad3                                             = 4;
+	required mtc550satamatics_u_inputs inputs_changed	            = 5; 
+	required mtc550satamatics_u_outputs outputs_changed	            = 6;
+}
+
+/////////////////// POSITION.EVENT_SAT ////////////////////
+message mtc550satamatics_u_event_sat
+{
+	required uint32 action_id							= 1;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550satamatics_u_position
+{
+	required mtc550satamatics_u_firmware firmware	               = 1;
+	required mtc550satamatics_u_gps_modem gps_modem               = 2;
+	required mtc550satamatics_u_hardware_monitor hardware_monitor = 3;
+	required mtc550satamatics_u_event_sat event_sat			   = 4;
+}
+
+/// POSITION AND FREE DATA
+message mtc550satamatics_u_position_and_free_data
+{
+  required mtc550satamatics_u_firmware firmware	             = 1;
+  required mtc550satamatics_u_gps_modem gps_modem            = 2;
+  required string free_data                                  = 3;
+}
+
+

@@ -1,0 +1,9 @@
+package maxtrack.pb.services;
+
+message u_connection_notify
+{
+	required uint32 protocol              = 1;
+	required uint32 serial                = 2;
+	required string date                  = 3;
+	required bool conn_state              = 4;
+}

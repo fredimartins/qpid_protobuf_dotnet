@@ -1,0 +1,142 @@
+package maxtrack.pb.td50skywave;
+
+// option java_package = "maxtrack.xxx.xx";
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message td50skywave_u_firmware
+{
+	required uint32 protocol                         = 1;	// Device Protocol
+	required uint32 dmr_id							 = 2;
+}
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message td50skywave_u_gps_modem_flag_state
+{
+	required bool gps_signal          = 1;
+}
+
+message td50skywave_u_gps_modem_sad69_datum
+{
+	required double latitude_sad69		= 1;
+	required double longitude_sad69		= 2;
+}
+
+message td50skywave_u_gps_modem_utm_coordinate
+{
+	required string utm					= 1;
+	required double easting				= 2;
+	required double northing			= 3;
+}
+
+
+message td50skywave_u_gps_modem
+{
+	required string date                              = 1; 
+	optional double latitude                          = 2;
+	optional double longitude                         = 3;
+	optional double speed                             = 4;
+	optional td50skywave_u_gps_modem_flag_state flag_state = 5;
+	optional td50skywave_u_gps_modem_sad69_datum sad69_datum			= 6;
+	optional td50skywave_u_gps_modem_utm_coordinate utm_coordinate	= 7;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message td50skywave_u_inputs
+{
+	required bool input_1  = 1;
+	required bool input_2  = 2;
+	required bool input_3  = 3;
+	required bool input_4  = 4;
+}
+
+message td50skywave_u_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+	required bool output_4 = 4;
+}
+
+message td50skywave_u_hardware_monitor
+{
+	required td50skywave_u_inputs inputs                       = 1;
+	required td50skywave_u_outputs outputs                     = 2;
+}
+
+/////////////////// POSITION.EMBEDDED /////////////////////////
+message td50skywave_u_embedded
+{
+	required uint32 console_event                    = 1;
+}
+
+
+/////////////////// MACRO /////////////////////////
+message td50skywave_u_macro_field
+{
+	required uint32 field_id    = 1;
+	required string field_value = 2;
+}
+
+message td50skywave_u_macro
+{
+	required uint32 macro_id                   = 1;
+	required uint32 fields_count               = 2;
+	repeated td50skywave_u_macro_field macro_fields = 3;
+}
+
+message td50skywave_u_message_text_with_lat_long
+{
+  required uint32 event_type                        = 1;
+  required string free_data                         = 2;
+}
+
+message td50skywave_u_messsage_text_for_other_td50
+{
+  required uint32 event_type                        = 1;
+  required string free_data                         = 2;
+  required uint32 terminal_dest                     = 3;
+}
+
+message td50skywave_u_messsage_text
+{
+  required uint32 event_type                        = 1;
+  required string free_data                         = 2;
+}
+
+
+///////////////////////// POSITION //////////////////////////////
+message td50skywave_u_position
+{
+	required td50skywave_u_hardware_monitor hardware_monitor = 1;
+	required td50skywave_u_embedded embedded			             = 2;
+}
+
+///////////////////////// PACKET //////////////////////////////
+message td50skywave_u_packet
+{
+  enum td50skywave_packet_type
+  {
+	td50skywave_position = 1;
+	td50skywave_message_text = 2;
+	td50skywave_macro = 3;
+	td50skywave_messsage_text_with_latlong = 4;
+	td50skywave_messsage_text_for_other_td50 = 5;
+	
+  }
+  required td50skywave_packet_type packet_type = 1;
+  required td50skywave_u_firmware firmware          = 2;
+  required td50skywave_u_gps_modem gps_modem        = 3;
+  optional td50skywave_u_position position = 4;
+  optional td50skywave_u_messsage_text message_text = 5;
+  optional td50skywave_u_macro macro = 6;
+  optional td50skywave_u_message_text_with_lat_long message_text_with_lat_long = 7;
+  optional td50skywave_u_messsage_text_for_other_td50 messsage_text_for_other_td50 = 8;
+  
+}
+
+
+
+
+
+
+

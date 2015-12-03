@@ -1,0 +1,180 @@
+package maxtrack.pb.mtc550skywave;
+
+// option java_package = "maxtrack.xxx.xx";
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message mtc550skywave_u_firmware
+{
+	required uint32 protocol                         = 1;	// Device Protocol
+	required uint32 dmr_id							 = 2;
+}
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message mtc550skywave_u_gps_modem_sad69_datum
+{
+	required double latitude_sad69		= 1;
+	required double longitude_sad69		= 2;
+}
+
+message mtc550skywave_u_gps_modem_utm_coordinate
+{
+	required string utm					= 1;
+	required double easting				= 2;
+	required double northing			= 3;
+}
+
+
+message mtc550skywave_u_gps_modem
+{
+	required string date                              = 1; 
+	required double latitude                          = 2;
+	required double longitude                         = 3;
+	optional double speed                             = 4;
+	optional uint32 hodometer                         = 5;
+	optional uint32 course                            = 6;
+	optional mtc550skywave_u_gps_modem_sad69_datum sad69_datum			= 7;
+	optional mtc550skywave_u_gps_modem_utm_coordinate utm_coordinate	= 8;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message mtc550skywave_u_inputs
+{
+	required bool ignition = 1;
+	required bool input_2  = 2;
+	required bool input_3  = 3;
+	required bool input_4  = 4;
+	required bool input_5  = 5;
+	required bool input_6  = 6;
+	required bool input_7  = 7;
+	required bool input_8  = 8;
+	required bool panic    = 9;
+	required bool input_1  = 10;
+}
+
+message mtc550skywave_u_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+	required bool output_4 = 4;
+	required bool output_5 = 5;
+	required bool output_6 = 6;
+	required bool output_7 = 7;
+	required bool output_8 = 8;
+}
+
+message mtc550skywave_u_inputs_changed
+{
+	required bool input01		= 1;
+	required bool input02		= 2;
+	required bool input03		= 3;
+	required bool input04		= 4;
+	required bool input05		= 5;
+	required bool input06		= 6;
+	required bool input07		= 7;
+	required bool input08		= 8;
+}
+
+message mtc550skywave_u_outputs_changed
+{
+	required bool output01		= 1;
+	required bool output02		= 2;
+	required bool output03		= 3;
+	required bool output04		= 4;
+	required bool output05		= 5;
+	required bool output06		= 6;
+	required bool output07		= 7;
+	required bool output08		= 8;
+}
+
+message mtc550skywave_u_hardware_monitor
+{
+	required uint32 hourmeter                                    = 1;
+	required mtc550skywave_u_inputs inputs                       = 2;
+	required mtc550skywave_u_outputs outputs                     = 3;
+    required uint32 ad1                                          = 4;
+	required uint32 ad2                                          = 5;
+	required uint32 ad3                                          = 6;
+	required uint32 ad4                                          = 7;
+	required mtc550skywave_u_inputs_changed inputs_changed		 = 8;
+	required mtc550skywave_u_outputs_changed outputs_changed	 = 9;
+}
+
+/////////////////// POSITION.EVENT_SAT ////////////////////
+message mtc550skywave_u_event_sat
+{
+	required uint32 action_id							= 1;
+	required bool ext_packet							= 2;
+	required bool has_ad2								= 3;
+	required bool has_ad3								= 4;
+	required bool jamming								= 5;
+	required uint32 macro_id							= 6;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550skywave_u_position
+{
+	required mtc550skywave_u_firmware firmware	               = 1;
+	required mtc550skywave_u_gps_modem gps_modem               = 2;
+	required mtc550skywave_u_hardware_monitor hardware_monitor = 3;
+	required mtc550skywave_u_event_sat event_sat			   = 4;
+}
+
+/////////////////////////////////////////////////////////////////
+//////////////////// POSITION AND FREE DATA /////////////////////
+/////////////////////////////////////////////////////////////////
+message mtc550skywave_u_position_and_free_data
+{
+  required mtc550skywave_u_firmware firmware	             = 1;
+  required mtc550skywave_u_gps_modem gps_modem               = 2;
+  required string free_data                                  = 3;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// REDUCED POSITION //////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550skywave_u_reduced_inputs
+{
+	required bool ignition = 1;
+	required bool input_2  = 2;
+	required bool input_3  = 3;
+	required bool input_4  = 4;
+	required bool input_5  = 5;
+	required bool input_6  = 6;
+	required bool input_7  = 7;
+	required bool panic    = 8;
+	required bool input_1  = 9;
+}
+
+message mtc550skywave_u_reduced_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+	required bool output_4 = 4;
+}
+
+message mtc550skywave_u_reduced_hardware_monitor
+{
+  required mtc550skywave_u_reduced_inputs inputs                       = 1;
+  required mtc550skywave_u_reduced_outputs outputs                     = 2;
+}
+
+message mtc550skywave_u_reduced_flags
+{
+  required bool gps_valid	= 1;
+}
+
+message mtc550skywave_u_reduced_position
+{
+  required mtc550skywave_u_firmware firmware		                         = 1;
+  required mtc550skywave_u_gps_modem gps_modem		                         = 2;
+  required mtc550skywave_u_reduced_hardware_monitor reduced_hardware_monitor = 3;
+  required mtc550skywave_u_reduced_flags flags								 = 4;
+}
+
+

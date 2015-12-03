@@ -1,0 +1,1344 @@
+package maxtrack.pb.mxt1xx;
+
+// option java_package                                                             = "maxtrack.xxx.xx";
+
+///////////////////// POSITION.INFO ///////////////////////////
+
+message mxt1xx_u_info
+{
+	required string generation_date                  = 1;	// Date of gateway generate the message
+	required uint32 packet_size                      = 2;	// Size of transmission in bytes
+	required string ipv4						     = 3;   // IP Address of transmission
+} 
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+
+message mxt1xx_u_firmware
+{
+	required uint32 serial                           = 1;	// Device ID
+	required uint32 protocol                         = 2;	// Device Protocol
+	required uint32 memory_index                     = 3; 	// Position counter
+	optional uint32 life_time                        = 4;   // Time since reset
+	optional uint32 packet_reason				     = 5;   // Reason of transmission
+	optional uint32 position_information			 = 6;
+} 
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message mxt1xx_u_gps_modem_flag_state
+{
+	required bool gprs_connection           = 1;
+	required bool voice_call                = 2;
+	required bool gps_signal                = 3;
+	required bool gps_antenna_failure       = 4;
+	required bool gps_antenna_disconnected  = 5;
+	required bool excess_speed              = 6;
+	required bool gps_sleep                 = 7;
+	required bool gsm_jamming               = 8;
+	required bool moving                    = 9;
+	required bool cell_present              = 10;
+}
+
+message mxt1xx_u_gps_modem_sad69_datum
+{
+	optional double latitude_sad69		= 1;
+	optional double longitude_sad69		= 2;
+}
+
+message mxt1xx_u_gps_modem_utm_coordinate
+{
+	optional string utm					= 1;
+	optional double easting				= 2;
+	optional double northing			= 3;
+}
+
+message mxt1xx_u_gps_modem
+{
+	required string date										= 1; 
+	required double latitude									= 2;
+	required double longitude									= 3;
+	required double speed										= 4;
+	required uint32 course										= 5;
+	optional uint32 svn											= 6;
+	optional uint32 hdop										= 7;
+	optional uint32 snr											= 8;
+	optional uint32 csq											= 9;
+	optional uint32 accelerometer_event							= 10;
+	optional uint32 accelerometer_value							= 11;
+	optional uint32 hodometer									= 12;  
+	required mxt1xx_u_gps_modem_flag_state flag_state			= 13;
+	optional mxt1xx_u_gps_modem_sad69_datum sad69_datum			= 14;
+	optional mxt1xx_u_gps_modem_utm_coordinate utm_coordinate	= 15;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message mxt1xx_u_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+} 
+
+message mxt1xx_u_inputs
+{
+	required bool ignition  = 1;
+	required bool panic     = 2;
+	required bool input_1   = 3;
+	required bool input_2   = 4;
+	required sint32 input_3 = 5;
+	required bool input_4   = 6;
+} 
+
+message mxt1xx_u_hardware_monitor_flag_state
+{
+	required bool tampering_is_open = 1;
+	required bool battery_charging  = 2;
+	required bool battery_failure   = 3;
+	required bool internal_alarm    = 4;
+	required uint32 anti_theft_status = 5;
+	required bool accessory_missing = 6;
+
+} 
+
+message mxt1xx_u_hardware_monitor
+{
+	required mxt1xx_u_inputs inputs                              = 1;
+	required mxt1xx_u_outputs outputs                            = 2;   
+	required mxt1xx_u_inputs secure_input_state                  = 3;
+	required uint32 accessory_count                              = 4;
+	required mxt1xx_u_hardware_monitor_flag_state flag_state     = 5;
+	optional uint32 rpm                                          = 6;
+	optional double temperature                                  = 7;
+	optional double power_supply                                 = 8;
+	optional double detailed_supply                              = 9;
+	optional uint32 battery_used                                 = 10;
+	optional uint32 hourmeter                                    = 11; //hours
+	optional double ad4											 = 12;
+	optional uint32 hourmeter_min                                = 13; //min
+}
+
+/////////////////// POSITION.EMBEDDED /////////////////////////
+message mxt1xx_u_embedded_flag_state
+{
+	required bool point_analise           = 1;
+	required bool point_in                = 2;
+	required bool point_out               = 3;
+} 
+
+message mxt1xx_u_embedded
+{
+	optional uint32 driver_id                        = 1; 	
+	optional uint32 point_id                         = 2;
+	optional uint32 route_id                         = 3;
+	required mxt1xx_u_embedded_flag_state flag_state = 4;
+}
+
+
+//////////////////// DYNAMIC DATA //////////////////////////
+message mxt1xx_u_cell_id_info
+{
+  required string cell_id           = 1;
+  required string country_code      = 2;
+  required string network_code      = 3;
+  required string local_area_code   = 4;
+}
+
+message mxt1xx_u_accessory_wt100
+{
+  required uint32 serial               = 1;
+  required uint32 battery_level        = 2;
+  required uint32 button_status        = 3;
+  required bool touch_sensor_status    = 4;
+  required bool wrist_loop1_event      = 5;
+  required bool wrist_loop2_event      = 6;
+  required uint32 internal_temperature = 7;
+  required string raw_data			   = 8;
+}
+
+message mxt1xx_u_accessory_wt110
+{
+  required uint32 serial               = 1;
+  required uint32 battery_level        = 2;
+  required uint32 button_status        = 3;
+  required uint32 internal_temperature = 4;
+  required string raw_data			   = 5;
+}
+
+message mxt1xx_u_accessory_wt111
+{
+  required uint32 serial               = 1;
+  required uint32 battery_level        = 2;
+  required uint32 button_status        = 3;
+  required bool under_temperature      = 4;
+  required bool over_temperature       = 5;
+  required uint32 external_temperature = 6;
+  required string raw_data			   = 7;
+}
+
+message mxt1xx_u_accessory_wt112
+{
+  required uint32 serial               = 1;
+  required uint32 battery_level        = 2;
+  required uint32 button_status        = 3;
+  required bool loop_1                 = 4;
+  required bool loop_2                 = 5;
+  required uint32 internal_temperature = 6;
+  required string raw_data			   = 7;
+}
+
+message mxt1xx_u_accessory_wt200_inputs
+{
+  required bool input_a       = 1;
+  required bool input_b       = 2;
+  required bool input_c       = 3;
+  required bool input_d       = 4;
+  required bool mask_input_a  = 5;
+  required bool mask_input_b  = 6;
+  required bool mask_input_c  = 7;
+  required bool mask_input_d  = 8;
+}
+
+message mxt1xx_u_accessory_wt200_outputs
+{
+  required uint32 output_a       = 1;
+  required uint32 output_b       = 2;
+  required uint32 output_c       = 3;
+}  
+
+message mxt1xx_u_accessory_wt200
+{
+  required uint32 serial                                   = 1;
+  required uint32 index                                    = 2;
+  required mxt1xx_u_accessory_wt200_inputs input_status    = 3;
+  required mxt1xx_u_accessory_wt200_outputs output_status  = 4;
+  required bool g_sensor_status                            = 5;
+  required uint32 onewire1                                 = 6;
+  required uint32 onewire2                                 = 7; 
+  required string raw_data								   = 8;       
+}
+
+message mxt1xx_u_accessory_wt300
+{
+  required uint32 serial               = 1;
+  required uint32 button_status        = 2;
+  required bool under_temperature      = 3;
+  required bool over_temperature       = 4;
+  required uint32 event_code           = 5;
+  required uint32 message_group        = 6;
+  required uint32 message_code         = 7;
+  required string raw_data			   = 8;
+}
+
+message mxt1xx_u_accessory_wt400
+{
+  required uint32 serial               = 1;
+  required uint32 external_temperature = 2;
+  required uint32 battery_level        = 3;
+  required bool moving_status          = 4;
+  required bool door_status            = 5;
+  required uint32 button_status        = 6;
+  required bool power_fail             = 7;
+  required string raw_data			   = 8;
+}
+
+message mxt1xx_u_accessory_mxt101
+{
+  required uint32 serial                = 1;
+  required bool gprs_indicator          = 2;
+  required uint32 battery_level         = 3;
+  required uint32 button_status         = 4;
+  required sint32 internal_temperature  = 5;
+  required string raw_data			    = 6;
+}
+
+message mxt1xx_u_accessory_mxt151
+{
+  required uint32 serial               = 1;
+  required bool ignition_status        = 2;
+  required uint32 button_status        = 3;
+  required bool door_status            = 4;
+  required uint32 mode                 = 5;
+  required uint32 high_side_output     = 6;
+  required uint32 low_side_output1     = 7;
+  required uint32 low_side_output2     = 8;
+  required bool under_temperature      = 9;
+  required bool over_temperature       = 10;
+  required bool gprs_indicator         = 11;
+  required string raw_data			   = 12;
+}
+
+message mxt1xx_u_accessory_rpm_virtual
+{
+  required uint32 serial     = 1;
+  required uint32 rpm        = 2;
+  required string raw_data	 = 3;
+}
+
+message mxt1xx_u_accessory_gps_speed
+{
+	required uint32 serial  = 1;
+	required uint32 speed	= 2;
+	required string raw_data = 3;
+}
+
+message mxt1xx_u_accessory_tag_info
+{
+  required uint32 tag_id     = 1;
+  required bool tag_status   = 2;
+}
+
+message mxt1xx_u_accessory_tag
+{
+  required uint32 serial                        = 1;
+  repeated mxt1xx_u_accessory_tag_info tag_info = 2;
+  required string raw_data						= 3;
+  required uint64 bit_map						= 4;
+}
+
+message mxt1xx_u_accessory_rfid_driver
+{
+  required uint32 driver_id					 = 1;
+  required uint32 id						 = 2;
+}
+
+message mxt1xx_u_accessory_rfid_passenger
+{
+  required uint32 passenger_id					 = 1;
+  required bool passenger_authorized			 = 2;
+}
+
+message mxt1xx_u_accessory
+{
+  repeated mxt1xx_u_accessory_wt100 wt100_list                      = 1;
+  repeated mxt1xx_u_accessory_wt110 wt110_list                      = 2;
+  repeated mxt1xx_u_accessory_wt111 wt111_list                      = 3;
+  repeated mxt1xx_u_accessory_wt112 wt112_list                      = 4;
+  repeated mxt1xx_u_accessory_wt200 wt200_list                      = 5;
+  repeated mxt1xx_u_accessory_wt300 wt300_list                      = 6;
+  repeated mxt1xx_u_accessory_wt400 wt400_list                      = 7;
+  repeated mxt1xx_u_accessory_mxt101 mxt101_list                    = 8;
+  repeated mxt1xx_u_accessory_mxt151 mxt151_list                    = 9;
+  repeated mxt1xx_u_accessory_rpm_virtual rpm_virtual_list          = 10;
+  repeated mxt1xx_u_accessory_tag missing_tag_list                  = 11;
+  repeated mxt1xx_u_accessory_tag low_battery_list                  = 12;
+  repeated mxt1xx_u_accessory_gps_speed gps_speed_list		        = 13;
+  repeated mxt1xx_u_accessory_rfid_driver rfid_driver_list	        = 14;
+  repeated mxt1xx_u_accessory_rfid_passenger rfid_passenger_list	= 15;
+}
+
+message mxt1xx_u_additional_data_lbs_gsm_cell_tower
+{
+	required uint32 cell_id					= 1;
+	required uint32 mcc						= 2;
+	required uint32 mnc						= 3;
+	required uint32 lac						= 4;
+	required uint32 signal_str				= 5;
+}
+
+message mxt1xx_u_additional_data_lbs_gsm
+{
+	required string radio_type											 = 1;
+	required uint32 age													 = 2;
+	required uint32 timing_advance										 = 3;
+	repeated mxt1xx_u_additional_data_lbs_gsm_cell_tower cell_tower_list = 4;
+}
+
+message mxt1xx_u_additional_data_wifi_access_point
+{
+	required string mac_addr		= 1;
+	required uint32 signal_str		= 2;
+	required uint32 age				= 3;
+	required uint32 snr				= 4;
+	required uint32 channel			= 5;
+}
+
+message mxt1xx_u_additional_data_speed_details
+{
+	required uint32 average_speed						= 1;
+	required uint32 max_speed							= 2;
+	required uint32 over_speed_time						= 3;
+}
+
+message mxt1xx_u_additional_data_speed_histogram
+{
+	required string last_package_datetime				= 1;
+	required string actual_package_datetime				= 2;
+	required uint32 speed_range							= 3;
+	repeated uint32 groups								= 4;
+	required uint32 time_without_gps					= 5;
+}
+
+message mxt1xx_u_additional_data_telemetry_events_calibration_status
+{
+	required uint32 status		= 1;
+	required uint32 time_spent	= 2;
+}
+
+message mxt1xx_u_additional_data_telemetry_events_hard_acceleration
+{
+	required uint32 max_g		= 1;
+	required uint32 time_to_max	= 2;
+	required uint32 total_time	= 3;
+}
+
+message mxt1xx_u_additional_data_telemetry_events_hard_braking
+{
+	required uint32 max_g		= 1;
+	required uint32 time_to_max	= 2;
+	required uint32 total_time	= 3;
+}
+
+message mxt1xx_u_additional_data_telemetry_events_hard_lateral
+{
+	required uint32 max_g		= 1;
+	required uint32 time_to_max	= 2;
+	required uint32 total_time	= 3;
+	required uint32 side		= 4;
+}
+
+message mxt1xx_u_additional_data_telemetry_events_impact_detected
+{
+	required uint32 max_g		= 1;
+	required uint32 time_to_max	= 2;
+	required uint32 total_time	= 3;
+}
+
+message mxt1xx_u_additional_data_telemetry_events
+{
+	repeated mxt1xx_u_additional_data_telemetry_events_calibration_status calibration_status_list	= 1;
+	repeated mxt1xx_u_additional_data_telemetry_events_hard_acceleration hard_acceleration_list		= 2;
+	repeated mxt1xx_u_additional_data_telemetry_events_hard_braking hard_braking_list						= 3;
+	repeated mxt1xx_u_additional_data_telemetry_events_hard_lateral hard_lateral_list				= 4;
+	repeated mxt1xx_u_additional_data_telemetry_events_impact_detected impact_detected_list					= 5;
+}
+
+message mxt1xx_u_additional_data_journey_deltas_rpm_delta
+{
+	required uint32 rpm_range_blue			= 1;
+	required uint32 rpm_range_green			= 2;
+	required uint32 rpm_range_yellow		= 3;
+	required uint32 rpm_range_red			= 4;
+	required uint32 rpm_maximum				= 5;
+	required uint32 rpm_mean				= 6; 
+}
+
+message mxt1xx_u_additional_data_journey_deltas_speed_delta
+{
+	required uint32 maximum_speed				= 1;
+	required uint32 mean_speed					= 2;
+	required uint32 hodometer_accumulated		= 3;
+}
+
+message mxt1xx_u_additional_data_journey_deltas_mean_journey_timer_delta
+{
+	required uint32 time_of_journey			= 1;
+	required uint32 time_moving				= 2;
+	required uint32 time_stopped			= 3;
+	required uint32 time_engine_on			= 4;
+}
+
+message mxt1xx_u_additional_data_journey_deltas_location_delta
+{
+	required string end_datetime			= 1;
+	required uint32 start_memory_index		= 2;
+	required uint32 end_memory_index		= 3;
+	required double start_lat				= 4;
+	required double start_long				= 5;
+	required double end_lat					= 6;
+	required double end_long				= 7;
+}
+
+message mxt1xx_u_additional_data_journey_deltas_accelerometer_delta
+{
+	required uint32 max_rolling_axis_front			= 1;
+	required uint32 max_rolling_axis_back			= 2;
+	required uint32 max_lateral_axis_absolute		= 3;
+	required uint32 average_rolling_axis_front		= 4;
+	required uint32 average_rolling_axis_back		= 5;
+	required uint32 average_lateral_axis_absolute	= 6;
+}
+
+message mxt1xx_u_additional_data_journey_deltas
+{
+	required uint32 version														                        = 1;
+	required uint32 reason														                        = 2;
+	optional mxt1xx_u_additional_data_journey_deltas_rpm_delta rpm_delta		                        = 3;
+	optional mxt1xx_u_additional_data_journey_deltas_speed_delta speed_delta	                        = 4;
+	optional mxt1xx_u_additional_data_journey_deltas_mean_journey_timer_delta mean_journey_timer_delta	= 5;
+	optional mxt1xx_u_additional_data_journey_deltas_location_delta location_delta						= 6;
+	optional mxt1xx_u_additional_data_journey_deltas_accelerometer_delta accelerometer_delta			= 7;
+}
+
+message mxt1xx_u_additional_data_crash_reconstruction_second
+{
+	optional uint32 rolling_axis_front		= 1;
+	optional uint32 rolling_axis_back		= 2;
+	optional uint32 lateral_axis_right		= 3;
+	optional uint32 lateral_axis_left		= 4;
+	optional uint32 lateral_axis_absolute	= 5;
+	optional uint32 vertical_axis_positive	= 6;
+	optional sint32 vertical_axis_negative	= 7;
+	optional uint32 speed					= 8;
+	optional uint32 rpm						= 9;
+}
+
+message mxt1xx_u_additional_data_crash_reconstruction
+{
+	repeated mxt1xx_u_additional_data_crash_reconstruction_second seconds	= 1;
+}
+
+message mxt1xx_u_additional_data_route_reconstruction_section
+{
+	required double latitude	= 1;
+	required double longitude	= 2;
+	required uint32 speed		= 3;
+}
+
+message mxt1xx_u_additional_data_route_reconstruction
+{
+	repeated mxt1xx_u_additional_data_route_reconstruction_section sections	= 1;
+}
+
+message mxt1xx_u_additional_data_position_information_digital_data
+{
+	optional bool clutch				        = 1;               	
+	optional bool brake                	        = 2; 
+	optional bool parking_brake        	        = 3; 
+	optional bool motor_brake          	        = 4; 
+	optional bool windshield_wipers             = 5; 
+	optional bool door_closed          	        = 6; 
+	optional bool door_locked          	        = 7; 
+	optional bool trunk		           	        = 8; 
+	optional bool seat_belt           	        = 9; 	
+	optional bool headlights           	        = 10; 
+	optional bool malfunction_indicator_lamp   	= 11; 	
+}
+
+message mxt1xx_u_additional_data_position_information_analogic_data_dtc_packets
+{
+	required uint32 dtc_packet	= 1;
+}
+
+message mxt1xx_u_additional_data_position_information_analogic_data
+{
+	optional uint32 speed				                                                            = 1;
+	optional uint32 rpm					                                                            = 2;
+	optional uint32 odometer			                                                            = 3;
+	optional uint32 fuel_level1			                                                            = 4;
+	optional uint32 fuel_level2			                                                            = 5;
+	optional uint32 fuel_consumption	                                                            = 6;
+	optional uint32 intake_air_temp		                                                            = 7;
+	optional uint32 intake_air_flow		                                                            = 8;
+	optional uint32 throttle_position	                                                            = 9;
+	optional uint32 barometric_pressure	                                                            = 10;
+	optional uint32 control_module_voltage	                                                        = 11;
+	optional uint32 air_temperature			                                                        = 12;
+	optional uint32 fuel_type	                                                                    = 13;
+	optional uint32 ethanol_ratio	                                                                = 14;
+	optional uint32 oil_temperature	                                                                = 15;
+	optional uint32 engine_temperature	                                                            = 16;
+	optional uint32 engine_ref_torque	                                                            = 17;
+	optional uint32 current_gear	                                                                = 18;
+	optional uint32 engine_fuel_rate	                                                            = 19;
+	optional uint32 num_dtc_available	                                                            = 20;
+	optional uint32 num_dtc_packet		                                                            = 21;
+	repeated mxt1xx_u_additional_data_position_information_analogic_data_dtc_packets dtc_packets	= 22;
+}
+
+message mxt1xx_u_additional_data_position_information
+{
+	optional mxt1xx_u_additional_data_position_information_digital_data digital_data				= 1;
+	optional mxt1xx_u_additional_data_position_information_analogic_data analogic_data				= 2;
+}
+
+message mxt1xx_u_additional_data
+{
+	optional mxt1xx_u_additional_data_lbs_gsm lbs_gsm		                    = 1;
+	repeated mxt1xx_u_additional_data_wifi_access_point wifi_access_points_list = 2;
+	optional mxt1xx_u_additional_data_speed_details speed_details				= 3;
+	optional mxt1xx_u_additional_data_speed_histogram speed_histogram			= 4;
+	optional mxt1xx_u_additional_data_telemetry_events telemetry_events			= 5;
+	optional mxt1xx_u_additional_data_journey_deltas journey_deltas				= 6;
+	optional mxt1xx_u_additional_data_crash_reconstruction crash_reconstruction	= 7;
+	optional mxt1xx_u_additional_data_route_reconstruction route_reconstruction	= 8;
+	optional mxt1xx_u_additional_data_position_information position_information = 9;
+}
+
+message mxt1xx_u_transparent_data
+{
+	required string data = 1;
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////////// TRANSPARENT RESPONSE ////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_transparent_response_rs232_status
+{
+	required uint32 status = 1;
+}
+
+message mxt1xx_u_transparent_response
+{
+	required uint32 protocol                                            = 1;
+	required uint32 serial                                              = 2;
+	required string date												= 3;
+	optional mxt1xx_u_transparent_response_rs232_status rs232_status    = 4;
+}
+
+/////////////////////////////////////////////////////////////////
+////////////////////// ICC ID ANSWER ////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_icc_id_answer
+{
+	required uint32 protocol  = 1;
+	required uint32 serial    = 2;
+	required string icc_id    = 3;
+	required string date	  = 4;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// VERSION PACKET ////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_version
+{
+	required uint32 protocol        = 1;
+	required uint32 serial          = 2;
+	required string modem_version	= 3;
+	required string app_version		= 4;
+	required string zigbee_version  = 5;
+	required string date			= 6;
+}
+
+message mxt1xx_u_accelerometer_event
+{
+	required string axis		            = 1;
+	required double max_g		            = 2;
+	required double side_g_average		    = 3;
+	required double rolling_g_average		= 4;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_position
+{
+	required mxt1xx_u_firmware firmware                       = 1;
+	required mxt1xx_u_gps_modem gps_modem                     = 2;
+	required mxt1xx_u_hardware_monitor hardware_monitor       = 3;
+	required mxt1xx_u_embedded embedded                       = 4;
+	required mxt1xx_u_info info							      = 5;
+	optional mxt1xx_u_cell_id_info cell_info                  = 6;
+	optional mxt1xx_u_accessory accessories                   = 7;
+	optional mxt1xx_u_transparent_data transparent_data       = 8;
+	optional mxt1xx_u_additional_data additional_data	      = 9;
+	optional mxt1xx_u_accelerometer_event accelerometer_event = 10;
+}
+
+message mxt1xx_u_setup_header
+{
+  required uint32 serial     = 1;
+  required uint32 protocol   = 2;
+  required string timestamp  = 3; 
+  optional uint32 sender_id	 = 4;
+  optional uint32 receive_id = 5;
+}
+
+message mxt1xx_u_device_info
+{
+  required uint32 device_id  = 1;
+  required string sw_version = 2;
+}
+
+message mxt1xx_u_net_attributes
+{
+  required uint32 connection_type  = 1;
+  required uint32 keep_alive_timer = 2;
+  required string apn              = 3;
+  required string user             = 4;
+  required string password         = 5;
+  optional string apn2             = 6;
+  optional string user2            = 7;
+  optional string password2        = 8;
+
+}
+
+message mxt1xx_u_ip_address
+{
+  required string primary_ip_addr     = 1;
+  required string secondary_ip_addr   = 2;
+  required uint32 primary_ip_port     = 3;
+  required uint32 secondary_ip_port   = 4;
+}
+
+message mxt1xx_u_report_interval
+{
+  required uint32 timer_of_ignition_off = 1;
+  required uint32 timer_of_movement     = 2;
+  required uint32 timer_of_panic        = 3;
+  required uint32 resend_attempts       = 4;
+  required uint32 resend_timeout        = 5;
+  required uint32 info_group            = 6;
+  required uint32 keep_working_timer    = 7;
+  required uint32 timeout_moving        = 8;
+}
+
+message mxt1xx_u_gsr
+{
+  required uint32 send_immediately    = 1;
+  required uint32 deb_moving          = 2;
+  required uint32 deb_stopped         = 3;
+  required uint32 detect_moving       = 4;
+  required uint32 rs_mode             = 5;
+  required uint32 rolling_threshold   = 6;
+  required uint32 side_threshold      = 7;
+  required uint32 shock_threshold     = 8;
+}
+
+message mxt1xx_u_gps
+{
+  required uint32 keep_working_timer = 1;
+  required uint32 unfix_timeout      = 2;
+  required uint32 unfix_cold_timeout = 3;
+  required uint32 open_bf_trans_move = 4;
+  required uint32 open_bf_trans_stop = 5;
+  required uint32 acc_filter         = 6;
+  required string agps_server_ip_addr = 7;
+  required uint32 agps_server_ip_port = 8;
+}
+
+message mxt1xx_u_sms
+{
+  required uint32 send_mode          = 1;
+  required string alias_name         = 2;
+  required string destination        = 3;
+  required uint32 allow_number_mode  = 4;
+  required uint32 sms_max_send_count = 5;
+  required uint32 sms_interval       = 6;
+  required string sms_number1        = 7;
+  required string sms_number2        = 8;
+  required string sms_number3        = 9;
+}
+
+message mxt1xx_u_zig_info
+{
+  required uint32 master_sleep_enable = 1;
+  required uint32 keep_alive_interval = 2;
+  required uint32 keep_alive_duration = 3;
+  required uint32 acc_retry           = 4;
+  required uint32 acc_rx_timeout      = 5;
+  required string acc_encrypt_key     = 6;
+}
+
+message mxt1xx_u_other_info
+{
+  required uint32 led_enable          = 1;
+  required uint32 charing_only        = 2;
+  required uint32 input1_enable       = 3;
+  required uint32 input2_enable       = 4;
+  required uint32 input3_enable       = 5;
+  required uint32 low_power_alert     = 6;
+  required uint32 timezone            = 7;
+  required uint32 max_speed_limit     = 8;
+  required uint32 odometer            = 9;
+  required uint32 cellinfo            = 10;
+  required string dtmf_password       = 11;
+  required uint32 input4_enable       = 12;
+  required uint32 hourmeter           = 13;
+  required uint32 b_smart_output2     = 14;
+  required uint32 anti_theft_enable   = 15;
+  required uint32 door_detect         = 16;
+  required uint32 local_parking_mode  = 17;
+  required uint32 b_disable_zig_bee   = 18;
+  required uint32 b_odometer_calc     = 19;
+  required uint32 b_microphone_enable = 20;
+  required uint32 b_move_trigger_alarm = 21;
+  required uint32 ign_deb_timer        = 22;
+  required uint32 panic_deb_timer      = 23;
+  required uint32 ipt1_deb_timer       = 24;
+  required uint32 ipt2_deb_timer       = 25;
+  required uint32 ipt3_deb_timer       = 26;
+  required uint32 ipt4_deb_timer       = 27; 
+  required uint32 max_speed_deb_timer  = 28;
+  required uint32 wp_deb_timer         = 29;
+  required uint32 ex_power_deb_timer   = 30;
+  required uint32 opt1_mask            = 31;
+  required uint32 opt2_mask            = 32;
+  required uint32 opt3_mask            = 33;  
+  required uint32 old_pos_trans_count  = 34;
+  required uint32 backdoor             = 35;
+  required uint32 ign_vol_threshold    = 36;
+  required uint32 opt1_invert          = 37;
+  required uint32 charging_ign_off     = 38;
+  required uint32 speaker_enable       = 39;
+  required uint32 odo_rpm_enable       = 40;
+  required uint32 odo_pulses           = 41;
+  required uint32 rpm_pulses           = 42;
+  required uint32 rpm_threshold        = 43;
+  required uint32 buzzer_incoming_call = 44;
+  required string cfg_alias            = 45;
+  required uint32 speaker_vol          = 46;
+  required uint32 make_call_time       = 47;
+  required uint32 ring_mode            = 48;
+  repeated string incoming_number      = 49;
+  repeated string outgoing_number      = 50;
+  required uint32 ign_code             = 51;
+  required uint32 panic_and_door_as_input = 52;
+  required uint32 gps_filter              = 53;
+  required uint32 agps_timer              = 54;
+  required uint32 zig_link_timer          = 55;
+  required uint32 neutral_max_speed       = 56;
+  required uint32 neutral_rpm             = 57;
+  required uint32 neutral_excessive_rpm   = 58;
+  required uint32 gps_failure_debounce    = 59;
+  required uint32 link_fail_output        = 60;
+  required uint32 exceeded_max_speed_output = 61;
+  required uint32 jamming_output            = 62;
+  required uint32 jamming_alert             = 63;
+  required uint32 siren_activate            = 64;
+  required uint32 siren_deactivate          = 65;
+  required uint32 siren_cycles              = 66;
+  required uint32 output_for_siren          = 67;
+  required uint32 distance_threshold        = 68;
+  required uint32 direction_threshold       = 69;
+  required uint32 ip_priority               = 70;
+  required uint32 link_fail_times           = 71;
+  required string packet_encrypt_key        = 72;
+  required uint32 alert_timer               = 73;
+  required uint32 debounce_rolling          = 74;
+  required uint32 debounce_side             = 75;
+  required uint32 debounce_shock            = 76;
+  required uint32 gps_and_odometer_speed    = 77;
+  required uint32 parking_output            = 78;
+  required uint32 rolling_output            = 79;
+  required uint32 side_output               = 80;
+  required uint32 shock_output              = 81;
+  required uint32 sending_order             = 82;
+  required uint32 allow_set_apn_imxt        = 83;
+  required uint32 tag_interval              = 84;
+  required uint32 panic_via                 = 85;
+  required uint32 tag_fail_output           = 86;
+  required uint32 enable_ap_set_output      = 87;
+  required uint32 debounce_speed_neutral    = 88;
+  required uint32 debounce_max_rpm			= 89;
+  required uint32 debounce_max_rpm_neutral  = 90;
+  required uint32 parking_output_active		= 91;
+  required uint32 parking_output_deactive	= 92;
+  required uint32 parking_output_circle		= 93;
+  required uint32 parking_output_interval	= 94;
+  required uint32 gps_for_alert				= 95;
+  required uint32 rpm_factor				= 96;
+  required uint32 gsensor_debounce_factor	= 97;
+  required uint32 rpm_trigger				= 98;
+  required uint32 rpm_event_output1			= 99;
+  required uint32 rpm_event_output2			= 100;
+  required uint32 rpm_event_output3			= 101;
+  required uint32 improper_moving_output	= 102;
+  required uint32 allow_any_tag_acc			= 103;
+  required uint32 long_timer_no_moving		= 104;
+}
+
+message mxt1xx_u_ver_info
+{
+   required uint32 serial			= 1;
+   required string modem_version	= 2;
+   required string app_version		= 3;
+   required uint32 pin_status		= 4;
+   required uint32 flags	        = 5;
+   required string imsi		        = 6;
+   required string imei	            = 7;
+}
+
+message mxt1xx_u_zig_ver_info
+{
+   required string zigbee_version	= 1;
+}
+
+message mxt1xx_u_zig_info_ext
+{
+  required uint32 ap_power_level         = 1;
+  required uint32 ap_radio_chan          = 2;
+  required uint32 ed_relink_interval     = 3;
+  required uint32 ed_cmd_interval        = 4;
+  required uint32 ap_rev_all_bc          = 5;
+  required uint32 ed_time_retry_max      = 6;
+  required uint32 link_token             = 7;
+  required uint32 upd_by_zig_bee         = 8;
+  required uint32 time_without_gsm       = 9;
+  required uint32 zig_alarm_time         = 10;
+  required uint32 zig_rssi_filter        = 11;
+  required string zig_alarm_info         = 12;
+
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// MXT1XX SETUP //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_setup
+{
+  required mxt1xx_u_setup_header header              = 1;
+  optional mxt1xx_u_device_info device_info          = 2;
+  optional mxt1xx_u_net_attributes net_attributes    = 3;
+  optional mxt1xx_u_ip_address ip_address            = 4;
+  optional mxt1xx_u_report_interval report_interval  = 5;
+  optional mxt1xx_u_gsr gsr                          = 6;
+  optional mxt1xx_u_gps gps                          = 7;
+  optional mxt1xx_u_sms sms                          = 8;
+  optional mxt1xx_u_zig_info zig_info                = 9;
+  optional mxt1xx_u_other_info other_info            = 10;
+  optional mxt1xx_u_ver_info ver_info				 = 11;
+  optional uint32 panic_mode                         = 12;
+  optional mxt1xx_u_zig_info_ext zig_info_ext        = 13;
+  optional mxt1xx_u_zig_ver_info zig_ver_info		 = 14;
+  optional mxt1xx_u_dynamic_setup_event events		 = 15;
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////////// G100 RETURN CODE ////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_g100_return_code
+{
+  optional bool error        = 1;
+  optional uint32 crc        = 2;
+  optional uint32 type	     = 3;
+  optional uint32 operate    = 4;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// G100 CONFIG ///////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_g100_config
+{
+  required uint32 total_size                = 1;
+  required uint32 cam_video_width           = 2;
+  required uint32 cam_video_height          = 3;
+  required bool cam_standard_id             = 4;
+  required uint32 cam_frame_rate            = 5;
+  required string ip                        = 6;
+  required uint32 port                      = 7;
+  required uint32 bit_rate                  = 8;
+  required uint32 rec_auto_save_path_size   = 9;
+  required string rec_auto_save_path        = 10;   
+  required uint32 rec_manual_save_path_size = 11;
+  required string rec_manual_save_path      = 12; 
+  required uint32 cap_auto_save_path_size   = 13;
+  required string cap_auto_save_path        = 14;  
+  required uint32 cap_manual_save_path_size = 15;
+  required string cap_manual_save_path      = 16; 
+  required uint32 record_lenght             = 17;
+  required bool default_stream_state        = 18;
+  required bool default_record_state        = 19;
+  required bool debug_mode                  = 20;
+  required uint32 dvr_mode					= 21;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// G100 MESSAGE //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_g100
+{
+  required mxt1xx_u_setup_header header       = 1;
+  optional mxt1xx_u_g100_return_code ret_code = 2;
+  optional mxt1xx_u_g100_config config        = 3;
+}
+
+/////////////////////////////////////////////////////////////////
+//////////////////// IP GPRS CONNECT ////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_ip_gprs_connect
+{
+	required uint32 serial                           = 1; // Device ID
+	required uint32 protocol                         = 2; // Device Protocol
+	required string timestamp                        = 3; // data da conexão
+	required string ip                               = 4; // ip da conexão com o módulo
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// MXT1XX KEEP ALIVE /////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_keep_alive
+{
+	required uint32 serial                           = 1; // Device ID
+	required uint32 protocol                         = 2; // Device Protocol
+	required string timestamp                        = 3; // Receive date
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////// MXT1XX REQUEST OLD POS STATUS ///////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_request_old_pos_status
+{
+	required uint32 serial                           = 1; // Device ID
+	required uint32 protocol                         = 2; // Device Protocol
+	required string timestamp                        = 3; // Receive date
+	required bool finished							 = 4; // If discharge has finished
+	required uint32 packets							 = 5; // How many packets are discharged (0 is no packets found)
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////// MXT1XX DEVICE INFORMATION /////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_device_information
+{
+	required mxt1xx_u_setup_header header	= 1;
+	optional string modem_version			= 2;
+	optional string application_version		= 3;
+	optional string modem_name				= 4;
+	optional string application_name		= 5;
+	optional string aplication_flag			= 6;
+	optional uint32 hardware_version		= 7;
+	optional uint32 hardware_model			= 8;
+	optional uint32 has_password			= 9;
+	optional string imei					= 10;
+	optional string bluetooth_address		= 11;
+	optional uint32 encryption_key			= 12;
+	optional string system_time				= 13;
+	optional string sim_card_status			= 14;
+	optional string imsi					= 15;
+	optional string iccid					= 16;
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////////// MXT1XX DYNAMIC SETUP ////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mxt1xx_u_dynamic_setup_connection
+{
+	optional uint32 protocol				                    = 1; // 0 UDP; 1 TCP
+	optional string primary_apn				                    = 2;
+	optional string primary_user			                    = 3;
+	optional string primary_password		                    = 4;
+	optional string secondary_apn			                    = 5;
+	optional string secondary_user			                    = 6;
+	optional string secondary_password		                    = 7;
+	optional uint32 ip_priority				                    = 8; // 0 None; 1 Primary; 2 Secondary
+	optional string primary_ip_address		                    = 9;
+	optional uint32 primary_ip_port				                = 10; // 0~65535
+	optional string secondary_ip_address		                = 11;
+	optional uint32 secondary_ip_port		                    = 12; // 0~65535
+	optional uint32 keep_alive_timer		                    = 13; // 0~65535 sec
+	optional bool keep_udp_port					                = 14;
+	optional uint32 keep_alive_cloud		                    = 15; // 0 disable; 3~1440 min
+}
+
+message mxt1xx_u_dynamic_setup_position
+{
+	optional uint32 stopped_interval			                = 1; // 0 Disable; 5~65535 sec
+	optional uint32 stop_timer_factor			                = 2; // 0 - 1; 1 - 10; 2 - 100
+	optional uint32 moving_interval				                = 3; // 0 Disable; 5~65535 sec
+	optional uint32 timeout_moving				                = 4; // 0~65535 min
+	optional uint32 panic_interval				                = 5; // 0 Disable; 5~65535 sec
+	optional uint32 resend_attempts				                = 6; // 3~10
+	optional uint32 timeout_for_resend			                = 7; // 10~60 sec
+	optional uint32 distance_threshold			                = 8; // 0 Disable; 3~255 hundreds meters
+	optional uint32 direction_threshold			                = 9; // 0 Disable; 10~180 degrees
+	optional uint32 discharge_mode				                = 10; // 0 descending; 1 Growing
+}
+
+message mxt1xx_u_dynamic_setup_gps
+{
+	optional uint32 keep_working_timer				            = 1; // 0~65535 sec
+	optional uint32 unfix_timeout					            = 2; // 0~240 sec
+	optional uint32 unfix_timeout_coldstart			            = 3; // 0~240 sec
+	optional uint32 accelerate_filter				            = 4; // 4~255 km/h/s
+	optional uint32 gps_filter						            = 5; // 0 disabled; 1 enabled
+	optional uint32 gps_failure_time				            = 6; // 0~255 min
+
+}
+
+message mxt1xx_u_dynamic_setup_gsensor
+{
+	optional uint32 stop_to_move								= 1;
+	optional uint32 move_to_stop								= 2;
+	optional uint32 detect_interval								= 3;
+	optional bool send_event									= 4;
+	optional uint32 hard_acceleration_min_g						= 5;
+	optional uint32 hard_acceleration_threshold					= 6;
+	optional uint32 hard_breaking_min_g							= 7;
+	optional uint32 hard_breaking_threshold						= 8;
+	optional uint32 hard_curve_min_g							= 9;
+	optional uint32 hard_curve_threshold						= 10;
+	optional uint32 crash_min_g									= 11;
+	optional uint32 crash_threshold								= 12;
+	optional uint32 hard_acceleration_output					= 13;
+	optional uint32 hard_acceleration_cycles					= 14;
+	optional uint32 hard_acceleration_time_on					= 15;
+	optional uint32 hard_acceleration_time_off					= 16;
+	optional uint32 hard_breaking_output						= 17;
+	optional uint32 hard_breaking_cycles						= 18;
+	optional uint32 hard_breaking_time_on						= 19;
+	optional uint32 hard_breaking_time_off						= 20;
+	optional uint32 right_turn_acceleration_output				= 21;
+	optional uint32 right_turn_acceleration_cycles				= 22;
+	optional uint32 right_turn_acceleration_time_on				= 23;
+	optional uint32 right_turn_acceleration_time_off			= 24;
+	optional uint32 left_turn_acceleration_output				= 25;
+	optional uint32 left_turn_acceleration_cycles				= 26;
+	optional uint32 left_turn_acceleration_time_on				= 27;
+	optional uint32 left_turn_acceleration_time_off				= 28;
+	optional uint32 initial_calibration_output					= 29;
+	optional uint32 initial_calibration_cycles					= 30;
+	optional uint32 initial_calibration_time_on					= 31;
+	optional uint32 initial_calibration_time_off				= 32;
+	optional uint32 final_calibration_output					= 33;
+	optional uint32 final_calibration_cycles					= 34;
+	optional uint32 final_calibration_time_on					= 35;
+	optional uint32 final_calibration_time_off					= 36;
+	optional uint32 calibration_reset_output					= 37;
+	optional uint32 calibration_reset_cycles					= 38;
+	optional uint32 calibration_reset_time_on					= 39;
+	optional uint32 calibration_reset_time_off					= 40;
+	optional uint32 crash_output								= 41;
+	optional uint32 crash_cycles								= 42;
+	optional uint32 crash_time_on								= 43;
+	optional uint32 crash_time_off								= 44;
+}
+
+message mxt1xx_u_dynamic_setup_sms
+{
+	optional string alias_name								= 1;
+	optional bool password									= 2; // 0 disabled; 1 enabled
+	optional string destination								= 3; // recipient's phone number.
+	optional uint32 send_packet_mode						= 4; // 0 Not send; 1 when no GPRS; Only Destination
+	optional uint32 allow_any_number						= 5; // 0 any number; 1 only destination
+	optional bool feedback									= 6; // 0 disabled; 1 enabled
+	optional uint32 sms_interval							= 7; // 5~65535 sec
+	optional uint32 max_send_count							= 8; // 0~255
+	optional string panic_alert_number_1					= 9;
+	optional string panic_alert_number_2					= 10;
+	optional string panic_alert_number_3					= 11;
+	optional string speed_alert_phone_number				= 12;
+}
+
+message mxt1xx_u_dynamic_setup_input_and_output
+{
+	optional bool input1_enable								= 1; // 0 disabled; 1 enabled
+	optional uint32 panic_mode								= 2; // 0 None; 1 Key Released; 2 long pressed
+	optional bool input1_action								= 3; // 0 disabled; 1 enabled
+	optional bool panic_and_door_as_input					= 4; //	0 disabled; 1 enabled
+	optional bool output1_invert							= 5; //	0 disabled; 1 enabled
+	optional bool smart_output1								= 6; //	0 disabled; 1 enabled
+	optional uint32 max_speed_output						= 7; //	0 disabled; 1 output1
+	optional uint32 jamming_output							= 8; //	0 disabled; 1 output1
+}
+
+message mxt1xx_u_dynamic_setup_debounce_timer
+{
+	optional uint32 ignition_debounce						= 1; // 2~255 sec
+	optional uint32 ex_power_debounce						= 2; // 2~255 sec
+	optional uint32 jamming_debounce						= 3; // 2~255 sec
+	optional uint32 max_speed_debounce						= 4; // 2~255 sec
+	optional uint32 waypoint_debounce						= 5; // 2~255 sec
+	optional uint32 input1_debounce							= 6; // 2~255 sec
+}
+
+message mxt1xx_u_dynamic_setup_event
+{
+	optional bool evt_2_gprs_attached					                            = 2; // 0 disabled; 1 enabled
+	optional bool evt_8_gps_valid_after_tx_interval		                            = 8; // 0 disabled; 1 enabled
+	optional bool evt_9_ignition_on						                            = 9; // 0 disabled; 1 enabled
+	optional bool evt_10_ignition_off					                            = 10; // 0 disabled; 1 enabled
+	optional bool evt_11_panic_activated				                            = 11; // 0 disabled; 1 enabled
+	optional bool evt_12_panic_deactivated					                        = 12; // 0 disabled; 1 enabled
+	optional bool evt_13_input_1_activated					                        = 13; // 0 disabled; 1 enabled
+	optional bool evt_14_input_1_deactivated			                            = 14; // 0 disabled; 1 enabled
+	optional bool evt_15_input_2_activated					                        = 15; // 0 disabled; 1 enabled
+	optional bool evt_16_input_2_deactivated					                    = 16; // 0 disabled; 1 enabled
+	optional bool evt_17_input_3_activated					                        = 17; // 0 disabled; 1 enabled
+	optional bool evt_18_input_3_deactivated					                    = 18; // 0 disabled; 1 enabled
+	optional bool evt_19_input_4_activated					                        = 19; // 0 disabled; 1 enabled
+	optional bool evt_20_input_4_deactivated					                    = 20; // 0 disabled; 1 enabled
+	optional bool evt_21_moving_detect							                    = 21; // 0 disabled; 1 enabled
+	optional bool evt_22_stopped_detect								                = 22; // 0 disabled; 1 enabled
+	optional bool evt_23_anti_theft_violated					                    = 23; // 0 disabled; 1 enabled
+	optional bool evt_25_external_power_fail					                    = 25; // 0 disabled; 1 enabled
+	optional bool evt_26_external_power_ok					                        = 26; // 0 disabled; 1 enabled
+	optional bool evt_27_gps_antenna_fail					                        = 27; // 0 disabled; 1 enabled
+	optional bool evt_28_gps_antenna_ok												= 28; // 0 disabled; 1 enabled
+	optional bool evt_30_sleep					                                    = 30; // 0 disabled; 1 enabled
+	optional bool evt_31_output_1_activated					                        = 31; // 0 disabled; 1 enabled
+	optional bool evt_32_output_1_deactivated					                    = 32; // 0 disabled; 1 enabled
+	optional bool evt_33_output_2_activated					                        = 33; // 0 disabled; 1 enabled
+	optional bool evt_34_output_2_deactivated					                    = 34; // 0 disabled; 1 enabled
+	optional bool evt_35_output_3_activated					                        = 35; // 0 disabled; 1 enabled
+	optional bool evt_36_output_3_deactivated					                    = 36; // 0 disabled; 1 enabled
+	optional bool evt_37_max_speed_exceeded					                        = 37; // 0 disabled; 1 enabled
+	optional bool evt_38_max_speed_ok					                            = 38; // 0 disabled; 1 enabled
+	optional bool evt_39_entering_waypoint					                        = 39; // 0 disabled; 1 enabled
+	optional bool evt_40_leaving_waypoint					                        = 40; // 0 disabled; 1 enabled
+	optional bool evt_41_battery_is_failed										    = 41; // 0 disabled; 1 enabled
+	optional bool evt_42_battery_is_ok						                        = 42; // 0 disabled; 1 enabled
+	optional bool evt_43_delivery_fail					                            = 43; // 0 disabled; 1 enabled
+	optional bool evt_46_gsensor_rolling_threshold					                = 46; // 0 disabled; 1 enabled
+	optional bool evt_47_gsensor_side_threshold					                    = 47; // 0 disabled; 1 enabled
+	optional bool evt_48_gsensor_shock_threshold					                = 48; // 0 disabled; 1 enabled
+	optional bool evt_49_direction_changed					                        = 49; // 0 disabled; 1 enabled
+	optional bool evt_50_sms_interval_reached					                    = 50; // 0 disabled; 1 enabled
+	optional bool evt_52_anti_theft_back_to_normal				                    = 52; // 0 disabled; 1 enabled
+	optional bool evt_53_gsm_jamming_start					                        = 53; // 0 disabled; 1 enabled
+	optional bool evt_54_gsm_jamming_stop					                        = 54; // 0 disabled; 1 enabled
+	optional bool evt_55_excessive_rpm					                            = 55; // 0 disabled; 1 enabled
+	optional bool evt_56_excessive_rpm_on_neutral					                = 56; // 0 disabled; 1 enabled
+	optional bool evt_57_speeding_on_neutral					                    = 57; // 0 disabled; 1 enabled
+	optional bool evt_58_gps_failure					                            = 58; // 0 disabled; 1 enabled
+	optional bool evt_59_distance_attached					                        = 59; // 0 disabled; 1 enabled
+	optional bool evt_60_power_fail_gps_fail					                    = 60; // 0 disabled; 1 enabled
+	optional bool evt_61_agps_request					                            = 61; // 0 disabled; 1 enabled
+	optional bool evt_62_tag_accessories_status_changed					            = 62; // 0 disabled; 1 enabled
+	optional bool evt_63_tag_accessories_battery_status_changed					    = 63; // 0 disabled; 1 enabled
+	optional bool evt_64_link_broken					                            = 64; // 0 disabled; 1 enabled
+	optional bool evt_65_expand_input_changed					                    = 65; // 0 disabled; 1 enabled
+	optional bool evt_66_tag_accessories_status_changed_back					    = 66; // 0 disabled; 1 enabled
+	optional bool evt_67_only_have_30_power_in_battery					            = 67; // 0 disabled; 1 enabled
+	optional bool evt_68_only_have_20_power_in_battery					            = 68; // 0 disabled; 1 enabled
+	optional bool evt_69_keep_stopped_with_ignition_on_status					    = 69; // 0 disabled; 1 enabled
+	optional bool evt_70_improper_moving					                        = 70; // 0 disabled; 1 enabled
+	optional bool evt_71_camera_blind					                            = 71; // 0 disabled; 1 enabled
+	optional bool evt_72_blind_recover					                            = 72; // 0 disabled; 1 enabled
+	optional bool evt_73_video_lost					                                = 73; // 0 disabled; 1 enabled
+	optional bool evt_74_video_ok					                                = 74; // 0 disabled; 1 enabled
+	optional bool evt_75_rs232_data_incoming					                    = 75; // 0 disabled; 1 enabled
+	optional bool evt_76_calibrate_ignition_voltage_finished					    = 76; // 0 disabled; 1 enabled
+	optional bool evt_77_before_deep_sleep					                        = 77; // 0 disabled; 1 enabled
+	optional bool evt_78_exceed_max_speed_in_raining					            = 78; // 0 disabled; 1 enabled
+	optional bool evt_79_resume_speed_after_exceed_in_raining					    = 79; // 0 disabled; 1 enabled
+	optional bool evt_80_acceleration_exceed					                    = 80; // 0 disabled; 1 enabled
+	optional bool evt_81_acceleration_resume_after_exceed					        = 81; // 0 disabled; 1 enabled
+	optional bool evt_82_deceleration_exceed					                    = 82; // 0 disabled; 1 enabled
+	optional bool evt_83_deceleration_resume_after_exceed					        = 83; // 0 disabled; 1 enabled
+	optional bool evt_84_rfid_driver_login					                        = 84; // 0 disabled; 1 enabled
+	optional bool evt_85_rfid_driver_logout					                        = 85; // 0 disabled; 1 enabled
+	optional bool evt_86_rfid_passenger_login					                    = 86; // 0 disabled; 1 enabled
+	optional bool evt_87_generic_exceed_max_speed					                = 87; // 0 disabled; 1 enabled
+	optional bool evt_88_generic_resume_speed_after_exceed					        = 88; // 0 disabled; 1 enabled
+	optional bool evt_89_fail_try_device_password_more_than_3_times					= 89; // 0 disabled; 1 enabled
+	optional bool evt_90_receive_engine_seal_activate_command					    = 90; // 0 disabled; 1 enabled
+	optional bool evt_91_engine_seal_activated					                    = 91; // 0 disabled; 1 enabled
+	optional bool evt_92_engine_seal_deactivated					                = 92; // 0 disabled; 1 enabled
+	optional bool evt_93_engine_seal_activated_by_relay					            = 93; // 0 disabled; 1 enabled
+	optional bool evt_94_engine_seal_deactivated_relay					            = 94; // 0 disabled; 1 enabled
+	optional bool evt_95_engine_seal_activated_by_input1					        = 95; // 0 disabled; 1 enabled
+	optional bool evt_96_engine_seal_deactivated_by_input1					        = 96; // 0 disabled; 1 enabled
+	optional bool evt_97_network_scan_response					                    = 97; // 0 disabled; 1 enabled
+	optional bool evt_98_speed_histogram					                        = 98; // 0 disabled; 1 enabled
+	optional bool evt_99_trip_summarization_event		                            = 99; // 0 disabled; 1 enabled
+	optional bool evt_100_telemetry_events					                        = 100; // 0 disabled; 1 enabled
+	optional bool evt_101_gsensor_historic_event					                = 101; // 0 disabled; 1 enabled
+	optional bool evt_102_route_reconstruction_event					            = 102; // 0 disabled; 1 enabled
+}
+
+message mxt1xx_u_dynamic_setup_info_group
+{
+	optional bool waypoint				        = 1; // 0 disabled; 1 enabled
+	optional bool wireless						= 2; // 0 disabled; 1 enabled
+	optional bool general				        = 3; // 0 disabled; 1 enabled
+	optional bool odometer				        = 4; // 0 disabled; 1 enabled
+	optional bool hourmeter				        = 5; // 0 disabled; 1 enabled
+	optional bool event_id				        = 6; // 0 disabled; 1 enabled
+	optional bool detail_voltage			    = 7; // 0 disabled; 1 enabled
+}
+
+message mxt1xx_u_dynamic_setup_anti_theft
+{
+	optional bool anti_theft_enable				= 1; // 0 disabled; 1 enabled
+	optional bool improper_moving				= 2; // 0 disabled; 1 enabled
+	optional uint32 improper_move_output		= 3; // 0 disabled; 1 output1
+	optional bool local_parking					= 4; // 0 disabled; 1 enabled
+	optional bool output1_mask					= 5; // 0 disabled; 1 enabled
+	optional bool output2_mask					= 6; // 0 disabled; 1 enabled
+	optional bool output3_mask					= 7; // 0 disabled; 1 enabled
+	optional uint32 ignition_code				= 8; // 0~255
+	optional uint32 alarm_mode_timer			= 9; // 5~255 sec
+	optional bool alarmed_after_timer			= 10; // 0 disabled; 1 enabled
+	optional bool silence_law					= 11; // 0 disabled; 1 enabled
+}
+
+message mxt1xx_u_dynamic_setup_rs232
+{
+	optional bool working_mode					= 1; // 0 disable; 1 when ign on; 2 all time; 3 rfid driver; 4 rfid passenger
+	optional uint32 keep_working_timer			= 2; // 0~255 min
+	optional uint32 baud_rate					= 3; // 0 9600; 1 19200; 2 38400; 3 57600; 4 115200
+	optional bool serial_alert					= 4; // 0 disabled; 1 enabled
+	optional bool any_rfid_card					= 5; // 0 disabled; 1 enabled
+	optional uint32 logout_mode					= 6; // 0 rfid card; 1 ignition off
+}
+
+message mxt1xx_u_dynamic_setup_others
+{
+	optional string alias_name						= 1;
+	optional bool device_password					= 2;
+	optional string pin								= 3;
+	optional string puk								= 4;
+	optional bool switch_led_on						= 5; // 0 disabled; 1 enabled
+	optional sint32 timezone						= 6; // -32,768 to 32,767 in minutes
+	optional bool cell_info_in_pos					= 7; // 0 disabled; 1 enabled
+	optional uint32 max_speed_limit					= 8; // 0~255 km/h
+	optional bool calculate_odometer				= 9; // 0 disabled; 1 enabled
+	optional uint32 maximum_log_count				= 10; // 0~2000
+	optional uint32 ignition_voltage				= 11; // 0~255 (real voltage: value * 0.5)
+	optional uint32 ignition_voltage_factor			= 12; // 0 1; 1 2; 2 5; 3 10
+	optional uint32 ignition_timer					= 13; // 0~255 min
+	optional bool charging_allow					= 14; // 0 disabled; 1 enabled
+	optional uint32 working_before_sleep			= 15; // 0~255 hours
+	optional uint32 histogram_groups				= 16; // 0~32
+	optional uint32 speed_histogram_interval		= 17; // 0~255 km/h
+	optional bool position_speed_summarization		= 18; // 0 disabled; 1 enabled
+}
+
+message mxt1xx_u_dynamic_setup_can
+{
+	optional bool can_enable				            = 1; // 0 disabled; 1 enabled
+	optional bool can_additional_packet				    = 2; // 0 disabled; 1 enabled
+	optional bool clutch				                = 3; // 0 disabled; 1 enabled
+	optional bool brake				                    = 4; // 0 disabled; 1 enabled
+	optional bool parking_brake				            = 5; // 0 disabled; 1 enabled
+	optional bool motor_brake				            = 6; // 0 disabled; 1 enabled
+	optional bool window_wipers				            = 7; // 0 disabled; 1 enabled
+	optional bool doors_closed				            = 8; // 0 disabled; 1 enabled
+	optional bool doors_locked				            = 9; // 0 disabled; 1 enabled
+	optional bool trunk_closed				            = 10; // 0 disabled; 1 enabled
+	optional bool seat_belt_buckled				        = 11; // 0 disabled; 1 enabled
+	optional bool headlights_on				            = 12; // 0 disabled; 1 enabled
+	optional bool malfunction_lamp_on				    = 13; // 0 disabled; 1 enabled
+	optional bool speed				                    = 14; // 0 disabled; 1 enabled
+	optional bool rpm				                    = 15; // 0 disabled; 1 enabled
+	optional bool fuel_level_1				            = 16; // 0 disabled; 1 enabled
+	optional bool fuel_level_2				            = 17; // 0 disabled; 1 enabled
+	optional bool fuel_consumption				        = 18; // 0 disabled; 1 enabled
+	optional bool intake_air_temp				        = 19; // 0 disabled; 1 enabled
+	optional bool intake_air_flow				        = 20; // 0 disabled; 1 enabled
+	optional bool fuel_type				                = 21; // 0 disabled; 1 enabled
+	optional bool ethanol_ratio				            = 22; // 0 disabled; 1 enabled
+	optional bool oil_temperature				        = 23; // 0 disabled; 1 enabled
+	optional bool engine_reference_torque				= 24; // 0 disabled; 1 enabled
+	optional bool current_gear				            = 25; // 0 disabled; 1 enabled
+	optional bool dtc				                    = 26; // 0 disabled; 1 enabled
+}
+
+message mxt1xx_u_dynamic_setup
+{
+	required mxt1xx_u_setup_header header						        = 1;
+	optional mxt1xx_u_dynamic_setup_connection connection		        = 2;
+	optional mxt1xx_u_dynamic_setup_position position			        = 3;
+	optional mxt1xx_u_dynamic_setup_gps gps						        = 4;
+	optional mxt1xx_u_dynamic_setup_gsensor gsensor				        = 5;
+	optional mxt1xx_u_dynamic_setup_sms sms						        = 6;
+	optional mxt1xx_u_dynamic_setup_input_and_output input_and_output	= 7;
+	optional mxt1xx_u_dynamic_setup_debounce_timer debounce_timer		= 8;
+	optional mxt1xx_u_dynamic_setup_event event							= 9;
+	optional mxt1xx_u_dynamic_setup_info_group info_group				= 10;
+	optional mxt1xx_u_dynamic_setup_anti_theft anti_theft				= 11;
+	optional mxt1xx_u_dynamic_setup_rs232 rs232							= 12;
+	optional mxt1xx_u_dynamic_setup_others others						= 13;
+	optional mxt1xx_u_dynamic_setup_can can								= 14;
+}

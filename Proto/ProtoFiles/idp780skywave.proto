@@ -1,0 +1,1683 @@
+package maxtrack.pb.idp780skywave;
+
+// option java_package 											           = "maxtrack.xxx.xx";
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message idp780skywave_u_firmware_flag_state
+{
+  required bool setup_modified 									           = 1;
+  required bool firmware_stored 								           = 2;
+}
+
+message idp780skywave_u_firmware
+{
+  required string sat_serial 										       = 1;   // Device ID
+  required uint32 protocol 										           = 2; // Device Protocol
+  required uint32 memory_index 									           = 3;     // Position counter
+  required idp780skywave_u_firmware_flag_state flag_state 				   = 4; // Flags
+}
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message idp780skywave_u_gps_modem_flag_state
+{
+  required bool voice_call 										           = 1;
+  required bool wifi_status 									           = 2;
+  required bool gps_signal 										           = 3;
+  required bool excess_speed 									           = 4;
+  required bool excess_stopped_time 							           = 5;
+  required bool gsm_jamming 									           = 6;
+  required uint32 gps_antenna_status 							           = 7;
+  optional bool satellite_status                                           = 8;
+  optional bool sd_card			                                           = 9;
+}
+
+message idp780skywave_u_gps_modem_satellite_info
+{
+  optional uint32 gps_status 									           = 1;
+  optional uint32 tx_state 										           = 2;
+  optional uint32 rx_state 										           = 3;
+  optional uint32 antenna_state 								           = 4;
+}
+
+message idp780skywave_u_gps_modem_sad69_datum
+{
+  optional double latitude_sad69 								           = 1;
+  optional double longitude_sad69 								           = 2;
+}
+
+message idp780skywave_u_gps_modem_utm_coordinate
+{
+  optional string utm 											           = 1;
+  optional double easting 										           = 2;
+  optional double northing 										           = 3;
+}
+
+message idp780skywave_u_gps_modem
+{
+  required string date 											           = 1;
+  required double latitude 										           = 2;
+  required double longitude 									           = 3;
+  required uint32 altitude 										           = 4;
+  required uint32 course 										           = 5;
+  required double speed 										           = 6;
+  required double hdop 											           = 7;
+  required uint32 svn 											           = 8;
+  required uint32 hodometer 									           = 9;
+  required idp780skywave_u_gps_modem_flag_state flag_state 			       = 10;
+  optional idp780skywave_u_gps_modem_satellite_info satellite_information  = 11;
+  required uint32 connection_status 							           = 12;
+  required uint32 force_connection 								           = 13;
+  optional idp780skywave_u_gps_modem_sad69_datum sad69_datum 			   = 14;
+  optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate 	       = 15;
+}
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message idp780skywave_u_secure_inputs
+{
+  optional bool input01_secure 									           = 1;
+  optional bool input02_secure 									           = 2;
+  optional bool input03_secure 									           = 3;
+  optional bool input04_secure 									           = 4;
+  optional bool input05_secure 									           = 5;
+  optional bool input06_secure 									           = 6;
+  optional bool input07_secure 									           = 7;
+  optional bool input08_secure 									           = 8;
+  optional bool input09_secure 									           = 9;
+  optional bool input10_secure 									           = 10;
+  optional bool input11_secure 									           = 11;
+  optional bool input12_secure 									           = 12;
+  optional bool input13_secure 									           = 13;
+  optional bool input14_secure 									           = 14;
+  optional bool input15_secure 									           = 15;
+  optional bool input16_secure 									           = 16;
+
+}
+
+message idp780skywave_u_inputs_change
+{
+  optional bool input01_change 									           = 1;
+  optional bool input02_change 									           = 2;
+  optional bool input03_change 									           = 3;
+  optional bool input04_change 									           = 4;
+  optional bool input05_change 									           = 5;
+  optional bool input06_change 									           = 6;
+  optional bool input07_change 									           = 7;
+  optional bool input08_change 									           = 8;
+  optional bool input09_change 									           = 9;
+  optional bool input10_change 									           = 10;
+  optional bool input11_change 									           = 11;
+  optional bool input12_change 									           = 12;
+  optional bool input13_change 									           = 13;
+  optional bool input14_change 									           = 14;
+  optional bool input15_change 									           = 15;
+  optional bool input16_change 									           = 16;
+
+}
+
+message idp780skywave_u_inputs
+{
+  required bool input_01_ign 									           = 1;
+  required bool input_02_panic 									           = 2;
+  required bool input_03 										           = 3;
+  required bool input_04 										           = 4;
+  required uint32 input_05_rpm 									           = 5;
+  required uint32 input_06_odo 									           = 6;
+  required uint32 input_07_tri 									           = 7;
+  required uint32 input_08_tri 									           = 8;
+  required uint32 input_09_tri 									           = 9;
+  required uint32 input_10_tri 									           = 10;
+  required bool input_11 										           = 11;
+  required bool input_12 										           = 12;
+  required bool input_13 										           = 13;
+  required bool input_14 										           = 14;
+  required bool input_15 										           = 15;
+  required bool input_16 										           = 16;
+  required bool panic 											           = 17;
+  optional idp780skywave_u_secure_inputs inputs_secure 				       = 18;
+  optional idp780skywave_u_inputs_change inputs_change 				       = 19;
+}
+
+message idp780skywave_u_secure_outputs
+{
+  optional bool output01_secure 								           = 1;
+  optional bool output02_secure 								           = 2;
+  optional bool output03_secure 								           = 3;
+  optional bool output04_secure 								           = 4;
+  optional bool output05_secure 								           = 5;
+  optional bool output06_secure 								           = 6;
+  optional bool output07_secure 								           = 7;
+  optional bool output08_secure 								           = 8;
+}
+
+message idp780skywave_u_outputs_change
+{
+  optional bool output01_change 								           = 1;
+  optional bool output02_change 								           = 2;
+  optional bool output03_change 								           = 3;
+  optional bool output04_change 								           = 4;
+  optional bool output05_change 								           = 5;
+  optional bool output06_change 								           = 6;
+  optional bool output07_change 								           = 7;
+  optional bool output08_change 								           = 8;
+}
+
+message idp780skywave_u_outputs
+{
+  required bool output_1 										           = 1;
+  required bool output_2 										           = 2;
+  required bool output_3 										           = 3;
+  required bool output_4 										           = 4;
+  required bool output_5 										           = 5;
+  required bool output_6 										           = 6;
+  required bool output_7 										           = 7;
+  required bool output_8 										           = 8;
+  optional idp780skywave_u_secure_outputs outputs_secure 				   = 9;
+  optional idp780skywave_u_outputs_change outputs_change 				   = 10;
+}
+
+message idp780skywave_u_hardware_monitor_ranged_state
+{
+  optional uint32 ad05range 									           = 1;        // 2 bits
+  optional uint32 ad06range 									           = 2;
+  optional uint32 ad07range 									           = 3;
+  optional uint32 ad08range 									           = 4;
+  optional uint32 ad09range 									           = 5;
+  optional uint32 ad10range 									           = 6;
+}
+
+message idp780skywave_u_hardware_monitor_ads_range
+{
+  optional uint32 ad05range_lower 									       = 1;        // 2 bits
+  optional uint32 ad05range_upper									       = 2;
+  optional uint32 ad06range_lower 									       = 3;        // 2 bits
+  optional uint32 ad06range_upper									       = 4;
+  optional uint32 ad07range_lower 									       = 5;        // 2 bits
+  optional uint32 ad07range_upper									       = 6;
+  optional uint32 ad08range_lower 									       = 7;        // 2 bits
+  optional uint32 ad08range_upper									       = 8;
+  optional uint32 ad09range_lower 									       = 9;        // 2 bits
+  optional uint32 ad09range_upper									       = 10;
+  optional uint32 ad10range_lower 									       = 11;        // 2 bits
+  optional uint32 ad10range_upper									       = 12;
+}
+
+message idp780skywave_u_hardware_monitor_flag_state
+{
+  required bool low_power 										           = 1;
+  required bool sleep_mode 										           = 2;
+  required bool external_memory 								           = 3;
+  required bool sim_card 										           = 4;
+  required bool alarm 											           = 5;
+  required bool tamper 											           = 6;
+  required bool external_power 									           = 7;
+}
+
+message idp780skywave_u_hardware_monitor
+{
+  required uint32 hourmeter 									           = 1;
+  required uint32 loads 										           = 2;
+  required uint32 short_circuit 								           = 3;
+  required uint32 timers 										           = 4;
+  required uint32 battery_state 								           = 5;
+  required idp780skywave_u_outputs outputs 							       = 6;
+  required idp780skywave_u_inputs inputs 								   = 7;
+  optional idp780skywave_u_hardware_monitor_ranged_state ranged_state 	   = 8;
+  required idp780skywave_u_hardware_monitor_flag_state flag_state 		   = 9;
+  required uint32 temperature 									           = 10;
+}
+
+////// BLACK BOX MINUTE ///////////////////
+
+
+message idp780skywave_u_black_box_second
+{
+  required uint32 odometer_move                                                    = 1;
+  required double latitude_move                                                    = 2;
+  required double longitude_move                                                   = 3;
+  required uint32 rpm                                                              = 4;
+  required uint32 speed                                                            = 5; 
+  required uint32 second_id                                                        = 6;
+  required idp780skywave_u_black_box_second_flags second_flags					   = 7;
+  required idp780skywave_u_black_box_inputs second_inputs						   = 8;
+  required idp780skywave_u_outputs second_outputs								   = 9;
+  optional idp780skywave_u_telemetry_flag_state second_telemetry_flags			   = 10;
+  optional idp780skywave_u_accelerometer_flags second_accelerometer_flags		   = 11;
+  optional uint32 action_id														   = 12;
+}
+
+message idp780skywave_u_black_box_second_flags
+{
+  required bool setup_modified	       = 1;
+  required bool firmware_stored        = 2;
+  required uint32 connection_status    = 3;
+  required bool force_connection	   = 4;
+  required bool voice_call		       = 5;
+  required bool wifi_status		       = 6;
+  required bool gps_signal		       = 7;
+  required uint32 gps_antenna_status   = 8;
+  required bool overspeed		       = 9;
+  required bool stopped_excess         = 10;
+  required uint32 anchor		       = 11;
+  required bool low_power		       = 12;
+  required bool sleep		           = 13;
+  required bool script_fail	           = 14;
+  required bool sim_card		       = 15;
+  required uint32 user_action          = 16;
+  required uint32 user_type	           = 17;
+  required bool working	               = 18;
+  required bool on_road	               = 19;
+  required bool alarm		           = 20;
+  required bool gsm_jamming            = 21;
+  required bool panic		           = 22;
+  required bool satellite_status	   = 23;
+  required bool sd_card				   = 24;
+  required uint32 course			   = 25;
+}
+
+message idp780skywave_u_black_box_inputs
+{
+	 required bool input_01 = 1;
+	 required bool input_02 = 2;
+	 required bool input_03 = 3;
+	 required bool input_04 = 4;
+	 required uint32 input_05 = 5;    /* IO modes *//* 0 - low *//* 1 - high *//* 2 - open *//* 3 - RFU *//* ADC modes *//* 4 - low *//* 5 - medium *//* 6 - high *//* 7 - RFU */
+	 required uint32 input_06 = 6;
+	 required uint32 input_07 = 7;
+	 required uint32 input_08 = 8;
+	 required uint32 input_09 = 9;
+	 required uint32 input_10 = 10;
+	 required bool input_11 = 11;
+	 required bool input_12 = 12;
+	 required bool input_13 = 13;
+	 required bool input_14 = 14;
+	 required bool input_15 = 15;
+	 required bool input_16 = 16;
+	 required bool tamper = 17;
+	 required uint32 battery = 18; //0 - Precharge//1 - Charge Complete//2 - Fault//3 - Suspend
+	 required bool ext_power = 19;     // 1 - external power// 0 - battery
+}
+
+message idp780skywave_u_black_box_minute
+{
+  required string sat_serial                                                       = 1;	// Device ID
+  required uint32 protocol                                                         = 2;	// Device Protocol
+  required string id                                                               = 3; // Minute Id
+  required uint32 version                                                          = 4;
+  repeated idp780skywave_u_black_box_second second                                 = 8;
+} 
+
+/////////////////// POSITION.OPEN_ROUTE /////////////////////////
+message idp780skywave_u_open_route_id
+{
+   required uint32 route_id		                                                       = 1;
+}
+
+message idp780skywave_u_open_route_data
+{
+  required idp780skywave_u_open_route_id id							   = 1;
+  required uint32 open_code		                                       = 2;
+}
+
+/////////////////// POSITION.UNEXECUTED_POINTS	/////////////////////////
+message idp780skywave_u_unexecuted_point_flags
+{
+  required bool wrong_sequence	= 1;
+  required bool wrong_direction = 2;
+  required uint32 value			= 3;
+}
+
+message idp780skywave_u_unexecuted_point
+{
+  required uint32 point_order						= 1;
+  required idp780skywave_u_unexecuted_point_flags flags	= 2;
+}
+
+message idp780skywave_u_unexecuted_points_data
+{
+  required uint32 size										= 1;
+  repeated idp780skywave_u_unexecuted_point unexecuted_point		= 2;
+}
+
+/////////////////// POSITION.TRIP_DATA /////////////////////////
+message idp780skywave_u_trip_data_flags
+{
+ required bool point_of_route                                                      = 1;
+ required uint32 point_state                                                       = 2;
+ required bool trip_opened                                                         = 3;
+ required bool sequence_break                                                      = 4;
+}
+
+message idp780skywave_u_trip_route_info
+{
+  required bool open_route_info				= 1;
+  required bool unexecuted_points			= 2;
+}
+
+message idp780skywave_u_trip_data
+{
+  required uint32 id                                                               = 1;
+  required idp780skywave_u_trip_route_info route_info                              = 2;
+  required idp780skywave_u_trip_data_flags flags                                   = 3;
+  required uint32 time_stopped                                                     = 4;
+  required uint32 port_state                                                       = 5;
+  required uint32 order                                                            = 6;
+}
+
+
+/////////////////// POSITION.ACCELEROMETER_DATA /////////////////////////
+
+message idp780skywave_u_accelerometer_flags
+{
+  required bool moving                                                                 = 1;
+  required bool pitching_alarm                                                         = 2;
+  required bool rolling_alarm                                                          = 3;
+  required bool hard_break                                                             = 4;
+  required bool hard_acceleration                                                      = 5;
+  required bool dirt_road                                                              = 6;
+  required uint32 calibrate_state                                                      = 7;
+  required bool trailer_alarm													       = 8;
+  required bool hard_left_acceleration											       = 9;
+  required bool hard_right_acceleration												   = 10;
+  required bool crash_alarm															   = 11;
+  required uint32 calibration_alarm													   = 12;
+}
+
+message idp780skywave_u_accelerometer
+{
+   required uint32 version                                                         = 1;
+   required sint32 pitching                                                        = 2;
+   required uint32 event_number                                                    = 3;
+   required sint32 rolling                                                         = 4;
+   required idp780skywave_u_accelerometer_flags flags                                     = 5;
+   optional uint32 flags_value				                                       = 6;      
+}
+
+message idp780skywave_u_acc_evt_moving
+{
+  required uint32 type                                                             = 1;
+  required bool move_type                                                          = 2;
+}
+
+message idp780skywave_u_acc_evt_rolling
+{
+  required uint32 type                                                             = 1;
+  required sint32 angle_value                                                      = 2;
+  required sint32 angle_reference                                                  = 3;
+}
+
+message idp780skywave_u_acc_evt_pitching
+{
+  required uint32 type                                                             = 1;
+  required sint32 angle_value                                                      = 2;
+  required sint32 angle_reference                                                  = 3;
+}
+
+message idp780skywave_u_acc_evt_trailer
+{
+  required uint32 type                                                             = 1;
+  required uint32 speed                                                            = 2;
+}
+
+message idp780skywave_u_acc_evt_dirt_road
+{
+  required uint32 type                                                             = 1;
+  required double max_g_variation                                                  = 2;
+  required uint32 time                                                             = 3;
+}
+
+message idp780skywave_u_acc_evt_hard_break
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message idp780skywave_u_acc_evt_spine
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message idp780skywave_u_acc_evt_crash
+{
+   required uint32 type                                                                = 1;
+   required double g_mean                                                              = 2;
+   required double g_max                                                               = 3;
+   required uint32 time                                                                = 4;
+   required uint32 time_g_max													       = 5;
+}
+
+message idp780skywave_u_acc_evt_hard_acceleration
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message idp780skywave_u_acc_evt_calibration
+{
+   required uint32 type                                                                = 1;
+   required uint32 status                                                              = 2;
+   required sint32 phi_angle                                                           = 3;
+   required sint32 theta_angle                                                         = 4;
+   required sint32 psi_angle													       = 5;
+}
+
+message idp780skywave_u_accelerometer_data
+{
+  required idp780skywave_u_accelerometer data									           = 1;
+  repeated idp780skywave_u_acc_evt_moving acc_evt_moving						           = 2;
+  repeated idp780skywave_u_acc_evt_rolling acc_evt_rolling						           = 3;
+  repeated idp780skywave_u_acc_evt_pitching acc_evt_pitching					           = 4;
+  repeated idp780skywave_u_acc_evt_trailer acc_evt_trailer						           = 5;
+  repeated idp780skywave_u_acc_evt_spine acc_evt_spine							           = 6;
+  repeated idp780skywave_u_acc_evt_hard_break acc_evt_hard_break				           = 7;
+  repeated idp780skywave_u_acc_evt_hard_acceleration acc_evt_hard_acceleration             = 8;
+  repeated idp780skywave_u_acc_evt_dirt_road acc_evt_dirt_road					           = 9;
+  repeated idp780skywave_u_acc_evt_hard_acceleration acc_evt_hard_left_acceleration		   = 10;
+  repeated idp780skywave_u_acc_evt_hard_acceleration acc_evt_hard_right_acceleration       = 11;
+  repeated idp780skywave_u_acc_evt_crash acc_evt_crash									   = 12;
+  repeated idp780skywave_u_acc_evt_calibration acc_evt_calibration						   = 13;
+}
+
+/////////////////// POSITION.EMBEDDED /////////////////////////
+message idp780skywave_u_embedded_flag_state
+{
+  required bool working 										           = 1;
+  required bool on_road 										           = 2;
+  optional bool embedded_client_actions 						           = 3;
+  optional bool point_analise 									           = 4;
+  optional bool area_analise 									           = 5;
+  optional bool fence_analise 									           = 6;
+  optional bool trip_analise 									           = 7;
+  optional bool lua_script 										           = 8;
+  optional bool accelerometer 									           = 9;
+  optional uint32 telemetry 									           = 10;
+}
+
+message idp780skywave_u_embedded
+{
+  required uint32 point_id 										           = 1;
+  required uint32 fence_id 										           = 2;
+  required uint32 area_id 										           = 3;
+  required uint32 driver_id 									           = 4;
+  required uint32 user_type 									           = 5;
+  required uint32 anchor 										           = 6;
+  required uint32 user_action 									           = 7;
+  required idp780skywave_u_embedded_flag_state flag_state 				   = 8;
+}
+
+/////////////////// POSITION.ACTIONS /////////////////////////
+message idp780skywave_u_actions_event_values
+{
+  required uint32 action_id 									           = 1;
+  required uint32 interval 										           = 2;
+}
+
+message idp780skywave_u_actions_event
+{
+  required uint32 actions_size 									           = 1;     // tamanho do vetor de acoes
+  repeated idp780skywave_u_actions_event_values action_values 			   = 2;
+}
+
+/////////////////// POSITION.MESSAGE /////////////////////////
+
+message idp780skywave_u_macro_delivery_ctrl_field
+{
+  required uint32 id																   = 1;
+  required uint32 timeout															   = 2;
+  required uint32 time2live															   = 3;
+}
+
+message idp780skywave_u_macro_field
+{
+  required uint32 field_id 										   = 1;
+  required string field_value 									   = 2;
+}
+
+message idp780skywave_u_macro_action
+{
+  required uint32 action_id		= 1;
+}
+
+message idp780skywave_u_macro_actions
+{
+  required uint32 time				    = 1;
+  required uint32 actions_size		    = 2;
+  repeated idp780skywave_u_macro_action action	= 3;
+}
+
+message idp780skywave_u_macro
+{
+  required uint32 message_id 												    = 1;
+  required uint32 macro_id 													    = 2;
+  required uint32 next_macro_id 											    = 3;
+  required uint32 macro_code 												    = 4;
+  required uint32 fields_count 												    = 5;
+  repeated idp780skywave_u_macro_field macro_fields 						    = 6;
+  required uint32 actions_count												    = 7;  
+  optional idp780skywave_u_macro_actions actions							    = 8;
+  required uint32 delivery_ctrl_fields_count								    = 9;
+  repeated idp780skywave_u_macro_delivery_ctrl_field macro_delivery_ctrl_fields	= 10;
+}
+
+message idp780skywave_u_message_response
+{
+  required uint32 message_readed_id 							           = 1;
+}
+
+message idp780skywave_u_message
+{
+  optional idp780skywave_u_message_response message_response 			   = 1;
+  optional idp780skywave_u_macro macro 								       = 2;
+}
+
+/////////////////// POSITION.TELEMETRY /////////////////////////
+message idp780skywave_u_delta_telemetry
+{
+  required uint32 delta_size 									           = 1;       // tamanho do vetor de deltas
+  repeated idp780skywave_u_delta_telemetry_values delta_values 		       = 2;
+}
+
+message idp780skywave_u_delta_telemetry_values
+{
+  required uint32 version 										           = 1;
+  required uint32 time_on_blue_level 							           = 2;
+  required uint32 type 											           = 3;
+  required uint32 time_on_red_level 							           = 4;
+  required uint32 maximum_speed 								           = 5;
+  required uint32 time_on_yellow_level 							           = 6;
+  required uint32 average_speed 								           = 7;
+  required uint32 hodometer 									           = 8;
+  required uint32 interval 										           = 9;
+  required uint32 time_running 									           = 10;
+  required uint32 time_on_green_level 							           = 11;
+  required uint32 moving_time 									           = 12;
+  required uint32 stopped_time 									           = 13;
+  required uint32 maximum_rpm 									           = 14;
+  required uint32 average_rpm 									           = 15;
+  required uint32 engine_break_time 							           = 16;
+  required uint32 clutch_use 									           = 17;
+  required uint32 break_use 									           = 18;
+}
+
+message idp780skywave_u_event_telemetry
+{
+  required uint32 event_size 									           = 1;       // tamanho do vetor de eventos
+  repeated idp780skywave_u_event_telemetry_values event_values 		       = 2;
+}
+
+message idp780skywave_u_event_telemetry_values
+{
+  required uint32 event_type                                                       = 1;
+  required uint32 speed                                                            = 2; 
+  required uint32 rpm                                                              = 3;
+  required uint32 time                                                             = 4; 
+  required uint32 min_speed                                                        = 5;
+  required uint32 max_speed                                                        = 6;
+  required uint32 end_speed                                                        = 7;
+  required uint32 limit                                                            = 8;
+  required uint32 max_rpm                                                          = 9;
+  required uint32 temperature                                                      = 10;
+  required uint32 voltage                                                          = 11;
+  required uint32 start_speed                                                      = 12;
+  required uint32 speed_trigger_event                                              = 13;
+  required uint32 speed_second_after_trigger                                       = 14;
+  required uint32 speed_second_2                                                   = 15;
+  required uint32 speed_second_3                                                   = 16;
+  required string filter_index													   = 17;
+  required string frame													           = 18;
+  required string can_id													       = 19;
+  required string data_a													       = 20;
+  required string data_b													       = 21;
+  required string bitrate													       = 22;
+  required string events_counter											       = 23;
+  required uint32 final_level_tank_1											   = 24;
+  required uint32 final_level_tank_2											   = 25;
+  required uint32 initial_level_tank_1											   = 26;
+  required uint32 initial_level_tank_2											   = 27;
+  required double kilometers_per_liter											   = 28;
+  required double fuel_consumed													   = 29;
+  required uint32 delta_type													   = 30;
+}
+
+message idp780skywave_u_telemetry_flag_state
+{
+  required bool pressure_oil_failure 							           = 1;
+  required bool clutch_pressing_excess 							           = 2;
+  required bool windshield_wiper_on 							           = 3;
+  required bool high_gear_box_st 								           = 4;
+  required bool engine_break_st 								           = 5;
+  required bool mx100_output_state 								           = 6;
+  required bool neutral_driving 								           = 7;
+  required bool ign_no_engine_rotation 							           = 8;
+  required bool low_gear_time_excess 							           = 9;
+  required bool speed_excess 									           = 10;
+  required bool rotation_excess 								           = 11;
+  required bool engine_tempetature_override 					           = 12;
+  required bool alternator_voltage 								           = 13;
+  required bool engine_on 										           = 14;
+  required bool break_st 										           = 15;
+  required bool clutch_st 										           = 16;
+  required bool oil_pressure_st 								           = 17;
+  required bool windshield_wiper_st 							           = 18;
+  required bool ibutton_presence 								           = 19;
+  required bool stopped_time_excess 							           = 20;
+  required uint32 delta_config_id 								           = 21;
+}
+
+message idp780skywave_u_telemetry
+{
+	required uint32 protocol_version                                               = 1;
+	required uint32 engine_temperature                                             = 2;
+	required uint32 fuel_level                                                     = 3;
+	required uint32 fuel_level_tank_1                                              = 4;
+	required uint32 fuel_level_tank_2                                              = 5;
+	required uint32 sensors_count                                                  = 6;
+	required uint32 time_running                                                   = 7;
+	required uint32 time_on_blue_level                                             = 8;
+	required uint32 time_on_yellow_level                                           = 9;
+	required uint32 time_on_green_level                                            = 10;
+	required uint32 time_on_red_level                                              = 11;
+	required uint32 moving_time                                                    = 12;
+	required uint32 stopped_time                                                   = 13;
+	required uint32 hodometer                                                      = 14;
+	required uint32 speed                                                          = 15;
+	required uint32 rpm                                                            = 16;
+	required uint32 ignition_voltage                                               = 17;
+	required idp780skywave_u_telemetry_flag_state telemetry_flag_state             = 18;	
+	optional idp780skywave_u_delta_telemetry delta                                 = 19;
+	optional idp780skywave_u_event_telemetry event                                 = 20;
+}
+
+/////////////////// POSITION.OPEN_DATA /////////////////////////
+message idp780skywave_u_open_data_packet
+{
+  optional uint32 source 										           = 1;
+  optional uint32 size 											           = 2;
+  optional string buffer 										           = 3;
+}
+
+message idp780skywave_u_open_data
+{
+  optional uint32 size 											           = 1;
+  repeated idp780skywave_u_open_data_packet open_data_packet 			   = 2;
+}
+
+message idp780skywave_u_od_message_id
+{
+  optional uint32 message_id 									           = 1;
+}
+
+message idp780skywave_u_open_data_confirmation
+{
+  optional uint32 size 											           = 1;
+  repeated idp780skywave_u_od_message_id message_id 					   = 2;
+}
+
+message idp780skywave_u_wifi_data
+{
+  required uint32 id = 1;
+  required string message = 2;
+}
+
+message idp780skywave_u_signal_intensity_data
+{
+  enum si_type
+  {
+	device_rssi = 1;
+	sat_signal_level = 2;
+	gsm_signal_level = 3;
+  };
+  required si_type type = 1;
+  required uint32 value = 2;
+}
+
+message idp780skywave_u_signal_intensity
+{
+  repeated idp780skywave_u_signal_intensity_data data = 1;
+}
+
+/////////// POSITION.ADDITIONAL_DATA.CONTROL_ACTIONS//////////
+message idp780skywave_u_control_actions
+{
+  optional bool control01 										           = 1;
+  optional bool control02 										           = 2;
+  optional bool control03 										           = 3;
+  optional bool control04 										           = 4;
+  optional bool control05 										           = 5;
+  optional bool control06 										           = 6;
+  optional bool control07 										           = 7;
+  optional bool control08 										           = 8;
+  optional bool control09 										           = 9;
+  optional bool control10 										           = 10;
+  optional bool control11 										           = 11;
+  optional bool control12 										           = 12;
+  optional bool control13 										           = 13;
+  optional bool control14 										           = 14;
+  optional bool control15 										           = 15;
+  optional bool control16 										           = 16;
+
+}
+
+message idp780skywave_u_adc_data
+{
+		optional uint32 input05					                           = 1;
+		optional uint32 input06					                           = 2;
+		optional uint32 input07					                           = 3;
+		optional uint32 input08					                           = 4;
+		optional uint32 input09					                           = 5;
+		optional uint32 input10					                           = 6;
+		optional uint32 imxt         			                           = 7;
+		optional uint32 td62					                           = 8;
+		optional double external_power			                           = 9;
+		optional double battery			                                   = 10;
+		optional uint32 one_wire_temp01			                           = 11;
+		optional uint32 one_wire_temp02			                           = 12;
+		optional uint32 one_wire_temp03			                           = 13;
+		optional uint32 one_wire_temp04			                           = 14;
+		optional uint32 one_wire_temp05			                           = 15;
+		optional uint32 one_wire_temp06			                           = 16;
+
+}
+
+message idp780skywave_u_battery_status
+{
+	optional uint32 battery_status_imxt			                           = 1;
+}
+
+message idp780skywave_u_cell_id_info
+{
+  required string cell_id                                                              = 1;
+  required string country_code                                                         = 2;
+  required string network_code                                                         = 3;
+  required string local_area_code                                                      = 4;
+}
+
+/////////////////// POSITION.ADDITIONAL_DATA///////////////////
+message idp780skywave_u_aditional_data
+{
+  optional idp780skywave_u_control_actions control_actions 			       = 1;
+  optional idp780skywave_u_open_data open_data 						       = 2;
+  optional idp780skywave_u_open_data_confirmation od_confirmation 		   = 3;
+  optional idp780skywave_u_adc_data adc_data							   = 4;
+  optional idp780skywave_u_wifi_data wifi_data                             = 5;
+  optional idp780skywave_u_signal_intensity signal_intensity               = 6;
+  optional idp780skywave_u_battery_status battery_status				   = 7;
+  optional idp780skywave_u_in inputs_counter							   = 8;
+  optional idp780skywave_u_cell_id_info gsm_info						   = 9;
+}
+
+/////////////////// POSITION.ONE_WIRE_DATA///////////////////
+message idp780skywave_u_one_wire_data
+{
+	required bytes data					= 1;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message idp780skywave_u_position
+{
+  required idp780skywave_u_firmware firmware 							                       = 1;
+  required idp780skywave_u_gps_modem gps_modem 						                           = 2;
+  required idp780skywave_u_hardware_monitor hardware_monitor 			                       = 3;
+  required idp780skywave_u_embedded embedded 							                       = 4;
+  optional idp780skywave_u_actions_event action_event 					                       = 5;
+  optional idp780skywave_u_message data_terminal_message 				                       = 6;
+  optional idp780skywave_u_telemetry telemetry 						                           = 7;
+  optional idp780skywave_u_aditional_data aditional_data 				                       = 8;
+  optional idp780skywave_u_accelerometer_data accelerometer_data		                       = 9;
+  optional idp780skywave_u_trip_data trip_data							                       = 10;
+  optional idp780skywave_u_open_route_data open_route_data				                       = 11;
+  optional idp780skywave_u_unexecuted_points_data unexecuted_points_data                       = 12;
+  optional idp780skywave_u_one_wire_data one_wire_data										   = 13;
+}
+
+/////////////////////////////////////////////////////////////////
+////////////////////////// SETUP ////////////////////////////////
+/////////////////////////////////////////////////////////////////
+message idp780skywave_u_setup_header
+{
+  required uint32 setup_version 								           = 1;
+  required string firmware_date 								           = 2;
+  required string firmware_version 								           = 3;
+  required string hardware_version 								           = 4;
+  required string gsm_modem_version 							           = 5;
+  required uint64 esn_imei 										           = 6;
+  required string imsi1 										           = 7;
+  required string imsi2 										           = 8;
+  required string setup_record_date 							           = 9;
+  required string telemetry_version 							           = 10;
+  required string zigbee_version 								           = 11;
+  required string data_terminal_version 						           = 12;
+  required string satellite_information 						           = 13;
+  required string sat_serial 									           = 14;
+  required uint32 protocol 										           = 15;
+}
+
+message idp780skywave_u_ads
+{
+  required uint32 ad5 											           = 1;
+  required uint32 ad6 											           = 2;
+  required uint32 ad7 											           = 3;
+  required uint32 ad8 											           = 4;
+  required uint32 ad9 											           = 5;
+  required uint32 ad10 											           = 6;
+}
+
+message idp780skywave_u_in
+{
+  optional uint32 input01 										           = 1;
+  optional uint32 input02 										           = 2;
+  optional uint32 input03 										           = 3;
+  optional uint32 input04 										           = 4;
+  optional uint32 input05 										           = 5;
+  optional uint32 input06 										           = 6;
+  optional uint32 input07 										           = 7;
+  optional uint32 input08 										           = 8;
+  optional uint32 input09 										           = 9;
+  optional uint32 input10 										           = 10;
+  optional uint32 input11 										           = 11;
+  optional uint32 input12 										           = 12;
+  optional uint32 input13 										           = 13;
+  optional uint32 input14 										           = 14;
+  optional uint32 input15 										           = 15;
+  optional uint32 input16 										           = 16;
+
+}
+
+message idp780skywave_u_config_wifi_config
+{
+  required uint32 channel 										           = 1;  /* 0 - all channels , 1 - 13 channel number */
+  required uint32 security_mode 								           = 2;    /* 0 - none , 1 - wpa1 , 2 - wpa2 , 3 - wep */
+  required uint32 infrastructure 								           = 3;   /* 0 - infra structure mode , 1 - BSSQI joiner , 2 - BSSQI creator */
+  required uint32 power 										           = 4;    /* 0 - low , 1 - medium , 2 - high */
+}
+
+message idp780skywave_u_config_wifi
+{
+  required string wifi_ssid 									           = 1;
+  required string wifi_psk 										           = 2;
+  required string wifi_ip 										           = 3;
+  required uint32 wifi_port 									           = 4;
+  required string wifi_mask 									           = 5;
+  required string wifi_ip_host 									           = 6;
+  required idp780skywave_u_config_wifi_config wifi_config 				   = 7;
+  optional string mac_address                                              = 8;
+}
+
+message idp780skywave_u_accelerometer_alarm_config
+{
+	required bool move_alarm                                                           = 1;
+	required bool stop_alarm                                                           = 2;
+	required bool rolling_alarm                                                        = 3;
+	required bool pitching_alarm                                                       = 4;
+	required bool trailer_alarm                                                        = 5;
+	required bool spine_alarm                                                          = 6;
+	required bool hard_break_alarm                                                     = 7;
+	required bool hard_accelerate_alarm                                                = 8;
+	required bool dirt_road_alarm                                                      = 9;
+	required bool hard_left_accelerate_alarm                                           = 10;
+	required bool hard_right_accelerate_alarm                                          = 11;
+	required bool crash_alarm				                                           = 12;
+	required bool calibration_alarm			                                           = 13;
+}
+
+message idp780skywave_u_accelerometer_config
+{
+  required uint32 calibrate_state                                                  = 1;
+  required sint32 min_pitching                                                     = 2;
+  required sint32 max_pitching                                                     = 3;
+  required sint32 min_rolling                                                      = 4;
+  required sint32 max_rolling                                                      = 5;
+  required sint32 g_alarm_start_positive_x                                         = 6;
+  required sint32 g_alarm_start_positive_y                                         = 7;
+  required sint32 g_alarm_start_positive_z                                         = 8;
+  required sint32 g_alarm_end_positive_x                                           = 9;
+  required sint32 g_alarm_end_positive_y                                           = 10;
+  required sint32 g_alarm_end_positive_z                                           = 11;
+  required uint32 scale_type_positive_x                                            = 12;
+  required uint32 scale_type_positive_y                                            = 13;
+  required uint32 scale_type_positive_z                                            = 14;
+  required uint32 debounce_moving                                                  = 15;
+  required sint32 g_alarm_start_negative_x                                         = 16;
+  required sint32 g_alarm_start_negative_y                                         = 17;
+  required sint32 g_alarm_start_negative_z                                         = 18;
+  required sint32 g_alarm_end_negative_x                                           = 19;
+  required sint32 g_alarm_end_negative_y                                           = 20;
+  required sint32 g_alarm_end_negative_z                                           = 21;
+  required uint32 scale_type_negative_x                                            = 22;
+  required uint32 scale_type_negative_y                                            = 23;
+  required uint32 scale_type_negative_z                                            = 24;
+  required uint32 debounce_stopped                                                 = 25;
+  required uint32 calibration_control                                              = 26;
+  required uint32 g_alarm_enter_dirt                                               = 27;
+  required uint32 g_alarm_exit_dirt                                                = 28;   
+  required uint32 max_speed_irregular_track                                        = 29;
+  required sint32 remap_axis_x                                                     = 30;
+  required sint32 remap_axis_y                                                     = 31;
+  required sint32 remap_axis_z                                                     = 32;
+  required idp780skywave_u_accelerometer_alarm_config alarm_config                 = 33;
+  required uint32 max_speed_irregular_track_with_rain                              = 34;
+  required uint32 g_alarm_debounce_time                                            = 35;
+  required uint32 g_crash_alarm_start											   = 36;
+  required uint32 g_crash_alarm_end                                                = 37;
+  required uint32 g_crash_alarm_threshold                                          = 38;
+}
+
+message idp780skywave_u_config_input_tristate_mask
+{
+	required uint32 input05rpm		= 1;
+	required uint32 input06odo		= 2;
+	required uint32 input07tri		= 3;
+	required uint32 input08tri		= 4;
+	required uint32 input09tri		= 5;
+	required uint32 input10tri		= 6;
+}
+
+message idp780skywave_u_config_actions_filter
+{
+  required bool valid_gps_activates_output_4				                = 1;
+  required bool sleep_mode_on_activates_output_2				            = 2;
+  required bool sleep_mode_on_deactivates_output_2				            = 3;
+  required bool output_4_on_activates_voice_channel				            = 4;
+  required bool input_3_on_force_gprs				                        = 5;
+  required bool input_4_on_force_gprs				                        = 6;
+  required bool input_5_on_force_gprs				                        = 7;
+  required bool input_6_on_force_gprs				                        = 8;
+  required bool input_7_on_force_gprs				                        = 9;
+  required bool input_8_on_force_gprs				                        = 10;
+  required bool input_3_on_activates_panic				                    = 11;
+  required bool input_3_off_activates_panic				                    = 12;
+  required bool speed_excess_by_gps_activates_output_1				        = 13;
+  required bool speed_excess_by_telemetry_activates_output_1				= 14;
+  required bool speed_excess_by_gps_activates_output_2				        = 15;
+  required bool speed_excess_by_telemetry_activates_output_2				= 16;
+  required bool speed_excess_by_gps_activates_output_3				        = 17;
+  required bool speed_excess_by_telemetry_activates_output_3				= 18;
+  required bool speed_excess_by_gps_activates_output_4				        = 19;
+  required bool speed_excess_by_telemetry_activates_output_4				= 20;
+  required bool gps_antenna_failure_force_gprs				                = 21;
+  required bool enter_in_embedded_point_force_gprs				            = 22;
+  required bool leave_an_embedded_point_force_gprs				            = 23;
+  required bool enter_in_embedded_point_group_force_gprs				    = 24;
+  required bool leave_an_embedded_point_group_force_gprs				    = 25;
+}
+
+message idp780skywave_u_config_reduced_sat_events
+{
+  required bool position                                                               = 1;
+  required bool embedded_action                                                        = 2;
+  required bool data_terminal                                                          = 3;
+  required bool t_deltas                                                               = 4;
+  required bool t_events                                                               = 5;
+  required bool acc_events                                                             = 6;
+  required bool trip_events                                                            = 7;
+  required bool text                                                                   = 8;
+  required bool adc                                                                    = 9;
+  required bool open_data                                                              = 10;
+  required bool telemetry                                                              = 11;
+}
+
+message idp780skywave_u_config_panic_configuration
+{
+  required string panic_remove_mode													   = 1;
+  required string panic_detect_mode													   = 2; 
+}
+
+message idp780skywave_u_config_extended_options
+{
+	required uint32 unknow_ibutton_options				= 1;
+	required bool control_output6_on_sleep				= 2;
+	required bool blackbox_enable_telemetry_flags		= 3;
+	required bool blackbox_enable_acc_flags				= 4;
+	required bool blackbox_enable_ea_event				= 5;
+}
+
+message idp780skywave_u_config
+{
+  required uint32 customer_id 									          = 1;
+  required uint32 vehicle_id 									          = 2;
+  required uint32 resolucao_jpeg 								          = 3;
+  required sint32 time_zone 									          = 4;
+  required uint32 anchor_radius 								          = 5;
+  required double anchor_latitude 								          = 6;
+  required double anchor_longitude 								          = 7;
+  required string pin1 											          = 8;
+  required string pin2 											          = 9;
+  required string apn1 											          = 10;
+  required string apn2 											          = 11;
+  required string user1 										          = 12;
+  required string user2 										          = 13;
+  required string password1 									          = 14;
+  required string password2 									          = 15;
+  required string dtmf_password 								          = 16;
+  required uint32 ignition_on_gsm_transmission_interval 		          = 17;
+  required uint32 ignition_on_satellite_transmission_interval 	          = 18;
+  required uint32 panic_gsm_transmission_interval 				          = 19;
+  required uint32 panic_satellite_transmission_interval 		          = 20;
+  required uint32 ignition_off_gsm_transmission_interval 		          = 21;
+  required uint32 ignition_off_satellite_transmission_interval 	          = 22;
+  required uint32 internal_battery_gsm_transmission_interval 	          = 23;
+  required uint32 internal_battery_satellite_transmission_interval        = 24;
+  required uint32 low_power_transmission_interval 				          = 25;
+  required uint32 sleep_transmission_interval 					          = 26;
+  required uint32 time_before_low_power 						          = 27;
+  required uint32 time_before_sleep 							          = 28;
+  required uint32 max_packets_discharge 						          = 29;
+  required uint32 gsm_no_operation_time_to_switch_to_satellite 	          = 30;
+  required uint32 time_report_stopped_excess 					          = 31;
+  required uint32 min_speed_stopped 							          = 32;
+  required uint32 time_stopped_excess 							          = 33;
+  required uint32 urban_speed_limit 							          = 34;
+  required uint32 urban_speed_limit_in_rain 					          = 35;
+  required uint32 on_road_speed_limit 							          = 36;
+  required uint32 on_road_speed_limit_in_rain 					          = 37;
+  required uint32 ads_filter_config 							          = 38;
+  required uint32 ads_filter_steps_interval 					          = 39;
+  required idp780skywave_u_config_wifi config_wifi 					      = 40;
+  required uint32 external_satellite_type						          = 41;
+  required idp780skywave_u_accelerometer_config accelerometer_config      = 42;
+  required uint32 point_direction_analysis								  = 43;
+  required idp780skywave_u_config_input_tristate_mask input_tristate_mask = 44;
+  required idp780skywave_u_config_actions_filter embedded_actions_filter  = 45;
+  required idp780skywave_u_config_reduced_sat_events reduced_sat_events	  = 46;
+  required string sms_default_phone_number								  = 47;
+  required string callback_default_phone_number							  = 48;
+  required uint32 serial_alert_type                                       = 49;
+  required uint32 serial_alert_interval                                   = 50;
+  required uint32 token_type                                              = 51;
+  required uint32 token_interval                                          = 52;
+  required uint32 custom_delta_id                                         = 53;
+  required string backup_dns_server										  = 54;
+  required uint32 direction_change_delta								  = 55;
+  required idp780skywave_u_config_panic_configuration panic_configuration = 56;
+  required idp780skywave_u_config_extended_options extended_options		  = 57;
+  required uint32 time_wait_sat_transmit								  = 58;
+  required uint32 time_wait_gsm_discharge_in_sleep_lowpower				  = 59;
+  required uint32 time_wakeup_sleep										  = 60;
+  required uint32 time_between_sat_report								  = 61;
+  required uint32 message_delivery_timeout								  = 62;
+  required uint32 sat_message_time_to_live								  = 63;
+  required uint32 fms_dataset                                             = 64;
+  required uint32 gps_filter                                              = 65;
+  required uint32 voice_call_max_time									  = 66;
+  required uint32 default_baudrate_rs232_a								  = 67;
+}
+
+message idp780skywave_u_cfg_cameras
+{
+  required bool camera01 										           = 1;
+  required bool camera02 										           = 2;
+  required bool camera03 										           = 3;
+  required bool camera04 										           = 4;
+  required bool rs232_camera 									           = 5;
+}
+
+message idp780skywave_u_inputs_config
+{
+  required uint32 input01 										           = 1;
+  required uint32 input02 										           = 2;
+  required uint32 input03 										           = 3;
+  required uint32 input04 										           = 4;
+  required uint32 input05 										           = 5;
+  required uint32 input06 										           = 6;
+  required uint32 input07 										           = 7;
+  required uint32 input08 										           = 8;
+  required uint32 input09 										           = 9;
+  required uint32 input10 										           = 10;
+  required uint32 input11 										           = 11;
+  required uint32 input12 										           = 12;
+  required uint32 input13 										           = 13;
+  required uint32 input14 										           = 14;
+  required uint32 input15 										           = 15;
+  required uint32 input16 										           = 16;
+}
+
+message idp780skywave_u_force_packs
+{
+  required bool td_data 										           = 1;
+  required bool image_data 										           = 2;
+  required bool event_data 										           = 3;
+  required bool telemetry_data 									           = 4;
+  required bool telemetry_delta_data 							           = 5;
+  required bool telemetry_event_data 							           = 6;
+  required bool input_change_data 								           = 7;
+  required bool secure_input_data 								           = 8;
+  required bool output_change_data 								           = 9;
+  required bool secure_output_data 								           = 10;
+  required bool user_logoff_data 								           = 11;
+  required bool embedded_modules_data 							           = 12;
+  required bool control_actions_data 							           = 13;
+  required bool counters_actions_data 							           = 14;
+  required bool adc_data 										           = 15;
+  required bool open_data_packet 								           = 16;
+  required bool inputs_counter 									           = 17;
+  required bool trip_data 										           = 18;
+  required bool accelerometer_data 								           = 19;
+  required bool one_wire_data 									           = 20;
+  required bool satellite_info 									           = 21;
+  required bool gsm_info 										           = 22;
+  required bool wifi 											           = 23;
+  optional bool signal_intensity                                           = 24;
+}
+
+message idp780skywave_u_embedded_modules
+{
+  required bool customer_embedded_actions 						           = 1;
+  required bool embedded_actions 						                   = 2;
+  required bool points_module 									           = 3;
+  required bool areas_module 									           = 4;
+  required bool fences_module 									           = 5;
+  required bool trips_module 									           = 6;
+  required bool lua_module 										           = 7;
+  required bool accelerometer 									           = 8;
+  required uint32 telemetry 									           = 9;
+  required uint32 satellite 									           = 10;
+  required bool one_wire 										           = 11;
+  required bool dual_sim 										           = 12;
+  required bool log_direction 									           = 13;
+  required uint32 wifi 									                   = 14;
+  required bool transparent_open_data									   = 15;
+  required bool embedded_actions_position_filter						   = 16;
+  required bool sms_positioning											   = 17;
+  required bool position_reason									   = 18;
+}
+
+message idp780skywave_u_counter_actions
+{
+  required uint32 counter01 									           = 1;
+  required uint32 counter02 									           = 2;
+  required uint32 counter03 									           = 3;
+  required uint32 counter04 									           = 4;
+  required uint32 counter05 									           = 5;
+  required uint32 counter06 									           = 6;
+  required uint32 counter07 									           = 7;
+  required uint32 counter08 									           = 8;
+}
+
+message idp780skywave_u_ips
+{
+  optional string ip1v4 										           = 1;
+  optional string ip2v4 										           = 2;
+  optional string ip3v4 										           = 3;
+  optional string ip1v6 										           = 4;
+  optional string ip2v6 										           = 5;
+  optional string ip3v6 										           = 6;
+  optional uint32 port1 										           = 7;
+  optional uint32 port2 										           = 8;
+  optional uint32 port3 										           = 9;
+  optional uint32 type 											           = 10;
+}
+
+message idp780skywave_u_name
+{
+  optional string name 											           = 1;
+  optional uint32 port 											           = 2;
+  optional uint32 type 											           = 3;
+}
+
+message idp780skywave_u_address
+{
+  optional idp780skywave_u_ips ips 									       = 1;
+  optional idp780skywave_u_name name 									   = 2;
+}
+
+message idp780skywave_u_io_config
+{
+  required uint32 buzzer_alert 									           = 1;
+  required uint32 ignition_overtime 							           = 2;
+  required uint32 neutral_driving 								           = 3;
+  required uint32 deacceleration 								           = 4;
+  required uint32 acceleration 									           = 5;
+  required uint32 second_speed 									           = 6;
+  required uint32 clutch_overtime 								           = 7;
+  required uint32 overspeed 									           = 8;
+  required uint32 red_range_excess 								           = 9;
+  required uint32 blue_range_excess 							           = 10;
+  required uint32 stopped_overtime 								           = 11;
+  required uint32 oil_fault 									           = 12;
+  required uint32 temperature_fault 							           = 13;
+  required uint32 alternator_fault 								           = 14;
+}
+
+message idp780skywave_u_telemetry_cfg
+{
+  required uint32 pulses_per_hundred 							           = 1;
+  required uint32 pulses_per_rev 								           = 3;
+  required uint32 min_blue_rpm 									           = 4;
+  required uint32 max_blue_rpm 									           = 5;
+  required uint32 min_green_rpm 								           = 6;
+  required uint32 max_green_rpm 								           = 7;
+  required uint32 min_red_rpm 									           = 8;
+  required uint32 min_banguela_speed 							           = 9;
+  required uint32 max_second_speed_departure 					           = 10;
+  required uint32 departure_rpm_speed_ratio 					           = 11;
+  required uint32 max_coolant_temperature 						           = 12;
+  required uint32 max_alternator_voltage 						           = 13;
+  required uint32 min_alternator_voltage 						           = 14;
+  required uint32 time_alternator_fault 						           = 15;
+  required uint32 time_oil_pressure_fault 						           = 16;
+  required uint32 time_clutch_excess 							           = 17;
+  required uint32 time_red_range_excess 						           = 18;
+  required uint32 time_ignition_excess 							           = 19;
+  required uint32 time_temperature_fault 						           = 20;
+  required uint32 time_banguela 								           = 21;
+  required uint32 time_raining 									           = 22;
+  required uint32 time_still_raining 							           = 23;
+  required uint32 time_blue_range_excess 						           = 24;
+  required uint32 allowed_acceleration 							           = 25;
+  required uint32 allowed_deacceleration 						           = 26;
+  required uint32 time_overspeed 								           = 27;
+  required uint32 pulses_per_hundred_2 							           = 28;
+  required idp780skywave_u_io_config io_config 						       = 29;
+}
+
+message idp780skywave_u_output_names
+{
+  required string output1_name 									           = 1;
+  required string output2_name 									           = 2;
+  required string output3_name 									           = 3;
+  required string output4_name 									           = 4;
+  required string output5_name 									           = 5;
+  required string output6_name 									           = 6;
+  required string output7_name 									           = 7;
+  required string output8_name 									           = 8;
+}
+
+message idp780skywave_u_input_names
+{
+  required string input1_name 									           = 1;
+  required string input2_name 									           = 2;
+  required string input3_name 									           = 3;
+  required string input4_name 									           = 4;
+  required string input5_name 									           = 5;
+  required string input6_name 									           = 6;
+  required string input7_name 									           = 7;
+  required string input8_name 									           = 8;
+  required string input9_name 									           = 9;
+  required string input10_name 									           = 10;
+  required string input11_name 									           = 11;
+  required string input12_name 									           = 12;
+  required string input13_name 									           = 13;
+  required string input14_name 									           = 14;
+  required string input15_name 									           = 15;
+  required string input16_name 									           = 16;
+}
+
+message idp780skywave_u_one_wire
+{
+  required uint32 one_wire01 									           = 1;
+  required uint32 one_wire02 									           = 2;
+  required uint32 one_wire03 									           = 3;
+  required uint32 one_wire04 									           = 4;
+}
+
+message idp780skywave_u_outputs_inversion
+{
+  required uint32 output01_inverted 							           = 1;
+  required uint32 output02_inverted 							           = 2;
+  required uint32 output03_inverted 							           = 3;
+  required uint32 output04_inverted 							           = 4;
+  required uint32 output05_inverted 							           = 5;
+  required uint32 output06_inverted 							           = 6;
+  required uint32 output07_inverted 							           = 7;
+  required uint32 output08_inverted 							           = 8;
+}
+
+message idp780skywave_u_setup
+{
+  required idp780skywave_u_setup_header header 						       = 1;
+  required idp780skywave_u_cfg_cameras cameras 						       = 2;
+  required idp780skywave_u_config config 								   = 3;
+  required idp780skywave_u_inputs_config inputs_cfg 					   = 4;
+  required idp780skywave_u_secure_inputs inputs_security 				   = 5;
+  required idp780skywave_u_outputs_inversion output_logic_inversion 	   = 6;
+  required idp780skywave_u_secure_outputs outputs_security 			       = 7;
+  required idp780skywave_u_force_packs force_packs 					       = 8;
+  required idp780skywave_u_embedded_modules embedded_modules 			   = 9;
+  required idp780skywave_u_counter_actions actions_counter 			       = 10;
+  required idp780skywave_u_control_actions actions_control 			       = 11;
+  repeated idp780skywave_u_address address 							       = 12;
+  required idp780skywave_u_telemetry_cfg telemetry_cfg 				       = 14;
+  required idp780skywave_u_ads ads_filter_variation 					   = 15;
+  required idp780skywave_u_ads ads_filter_steps 						   = 16;
+  required idp780skywave_u_in input_activation_time 					   = 17;
+  required idp780skywave_u_in input_deactivation_time 					   = 18;
+  required idp780skywave_u_hardware_monitor_ads_range ads_range 		   = 19;
+  required idp780skywave_u_output_names output_names 					   = 20;
+  required idp780skywave_u_input_names input_names 					       = 21;
+  repeated idp780skywave_u_one_wire one_wire_temperature_range 		       = 22;
+  optional idp780skywave_u_force_packs force_packs_sat       		       = 23;
+}
+
+
+// SETUP VAR
+
+message idp780skywave_u_actions_filter_list
+{
+  optional uint32 action_id 									           = 1;
+}
+
+message idp780skywave_u_mx100
+{
+  required uint32 running 										           = 1;
+  required uint32 blue_range 									           = 2;
+  required uint32 yellow_range 									           = 3;
+  required uint32 green_range 									           = 4;
+  required uint32 red_range 									           = 5;
+  required uint32 on_route 										           = 6;
+  required uint32 stopped 										           = 7;
+  required uint32 breaking 										           = 8;
+  required uint32 motor_breaking 								           = 9;
+  required uint32 total_pulse 									           = 10;
+  required uint32 total_pulse2 									           = 11;
+  required uint32 total_distance 								           = 12;
+}
+
+message idp780skywave_u_setup_var_header
+{
+  required string sat_serial  									           = 1;
+  required uint32 protocol 										           = 2;
+  required uint32 version 										           = 3;
+}
+
+message idp780skywave_u_setup_var
+{
+  
+  required idp780skywave_u_setup_var_header header						   = 1;
+  repeated idp780skywave_u_actions_filter_list actions_filter_list 	   = 2;
+  required uint32 action_filter_time 							   = 3;
+  required uint32 action_filter_time_compare 					   = 4;
+  required uint32 action_last_macro 							   = 5;
+  required uint32 action_last_macro2 							   = 6;
+  required uint32 last_firm_crc 								   = 7;
+  required uint32 last_firm_size 								   = 8;
+  required uint32 macro_root 									   = 9;
+  required uint32 fences_file_id 								   = 10;
+  required uint32 areas_file_id 								   = 11;
+  required uint32 points_file_id 								   = 12;
+  required uint32 polygon_points_file_id 						   = 13;
+  required uint32 embedded_actions_file_id 						   = 14;
+  required uint32 customer_embedded_actions_file_id 			   = 15;
+  required uint32 data_terminal_screens_file_id 				   = 16;
+  required uint32 users_file_id 								   = 17;
+  required uint32 audio_file_id 								   = 18;
+  required uint32 trip_file_id 									   = 19;
+  required uint32 pmv_messages_file_id 							   = 20;
+  required uint32 ptr_read_log 									   = 21;
+  required idp780skywave_u_position position 							   = 22;
+  optional idp780skywave_u_telemetry telemetry 						   = 23;
+  optional idp780skywave_u_mx100 mx100 								   = 24;
+  required uint32 hourmeter_seconds 							   = 25;
+  required uint32 gps_odometer 									   = 26;
+  required uint32 pulse_odometer 								   = 27;
+  repeated uint32 input_counters 								   = 28;
+  required uint32 area_group_id 								   = 29;
+  required uint32 point_group_id 								   = 30;
+  required uint32 last_fence_id 								   = 31;
+  required uint32 rpm 											   = 32;
+  required uint32 vcc_bat_int 									   = 33;
+  required uint32 vcc_ext_pwr 									   = 34;
+  repeated uint32 ads_value 									   = 35;
+  required uint32 crc 											   = 36;
+  repeated uint32 external_ads_value 							   = 37;
+  optional uint32 imxt_rssi                                        = 38;
+  optional uint32 imxt_uptime                                      = 39;
+  optional uint32 td_rssi                                          = 40;
+  optional uint32 td_uptime                                        = 41;
+  optional uint32 imxt_battery_status							   = 42;
+  optional string script_lua_version							   = 43;
+  optional idp780skywave_u_accelerometer accelerometer					   = 44;
+  optional idp780skywave_u_trip_data trip_data							   = 45;
+  optional uint32 last_route_id									   = 46;
+  optional uint32 last_route_index								   = 47;
+  optional uint32 last_route_ctrl								   = 48;
+}
+
+/////////////////// POSITION_REDUCED.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_position_flags
+{
+ required bool panic				= 1;
+ required bool gps_signal			= 2;
+ required bool gps_antenna_status	= 3;
+ required bool gsm_jamming			= 4;
+ required bool driver				= 5;
+ required bool battery				= 6;
+ required bool ignition				= 7;
+}
+
+message idp780skywave_u_reduced_position
+{
+ required uint32 protocol										  = 1;
+ required string sat_serial										  = 2;
+ required string date			                                  = 3;
+ required double latitude		                                  = 4;
+ required double longitude		                                  = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum       = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate = 7;
+ required idp780skywave_u_reduced_position_flags flags	          = 8;
+ required uint32 speed				                              = 9;
+ required idp780skywave_u_outputs outputs	                      = 10;
+}
+
+/////////////////// REDUCED_EMBEDDED_ACTION.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_embedded_action_actions_id
+{
+ required uint32 action_id	= 1;
+}
+
+message idp780skywave_u_reduced_embedded_action
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ required idp780skywave_u_outputs outputs	                            = 9;
+ required uint32 actions_size									        = 10;
+ repeated idp780skywave_u_reduced_embedded_action_actions_id actions_id = 11;
+}
+
+/////////////////// REDUCED_MACRO.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_macro
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional idp780skywave_u_message data_terminal_message					= 9;
+}
+
+/////////////////// REDUCED_DELTAS.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_deltas
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional idp780skywave_u_delta_telemetry deltas					    = 9;
+}
+
+/////////////////// REDUCED_TELEMETRY_EVENTS.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_telemetry_events
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional idp780skywave_u_event_telemetry event							= 9;
+}
+
+/////////////////// REDUCED_ACCELEROMETER_EVENTS.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_accelerometer_events
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional idp780skywave_u_accelerometer_data accelerometer_data			= 9;
+}
+
+/////////////////// REDUCED_TRIP.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_trip
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional idp780skywave_u_trip_data trip_data							= 9;
+}
+
+/////////////////// REDUCED_TEXT.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_text
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ optional string open_text												= 9;
+}
+
+/////////////////// REDUCED_ADC.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_adc
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ required idp780skywave_u_adc_data adc_data								= 9;
+}
+
+/////////////////// REDUCED_OPEN_DATA.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_open_data
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ required idp780skywave_u_open_data open_data							= 9;
+}
+
+/////////////////// REDUCED_TELEMETRY.MESSAGE /////////////////////////
+
+message idp780skywave_u_reduced_telemetry
+{
+ required uint32 protocol										        = 1;
+ required string sat_serial										        = 2;
+ required string date			                                        = 3;
+ required double latitude		                                        = 4;
+ required double longitude		                                        = 5;
+ optional idp780skywave_u_gps_modem_sad69_datum sad69_datum             = 6;
+ optional idp780skywave_u_gps_modem_utm_coordinate utm_coordinate       = 7;
+ required idp780skywave_u_reduced_position_flags flags	                = 8;
+ required idp780skywave_u_telemetry telemetry							= 9;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// ICCID /////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message idp780skywave_u_iccid
+{
+  required uint32 protocol	                                = 1;
+  required string sat_serial                                = 2;
+  optional string iccid1									= 4;
+  optional string iccid2									= 5;
+}
+
+/////////////////////////////////////////////////////////////////
+////////////////////////// HW_INFO //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message idp780skywave_u_hw_info
+{
+  required uint32 protocol				= 1;
+  required string sat_serial			= 2; //equipment id 
+  required uint32 type					= 3; //product type, idp780, mtc780, mtc700 adv, etc 
+  required string iccid1				= 4; //sim card id 1  
+  required string iccid2				= 5; //sim card id 2  
+  required uint32 sd_available			= 6; // 0 not detected, 1 or 2 –  fault, 3 sim card ok  
+  required bool wifi_avaliable			= 7; // 0 not available, 1 ok 
+  required bool zigbee_available		= 8; // 0 not available, 1 ok 
+  required bool bluetooth_available		= 9; // 0 not available, 1 ok 
+}
+
+/////////////////////////////////////////////////////////////////
+////////////////////// FILES LIST ///////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message idp780skywave_u_files_list_file
+{
+	required string file_name					= 1;
+	required uint32 crc							= 2;
+}
+
+message idp780skywave_u_files_list
+{
+  required uint32 protocol	                                = 1;
+  required string serial	                                = 2;
+  required uint32 list_type									= 3;
+  required uint32 files_size								= 4;
+  repeated idp780skywave_u_files_list_file files_list				= 5;
+}

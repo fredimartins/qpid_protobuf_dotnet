@@ -1,0 +1,1095 @@
+package maxtrack.pb.mtc550;
+
+// option java_package                                                             = "maxtrack.xxx.xx";
+
+///////////////////// POSITION.INFO ///////////////////////////
+
+message mtc550_u_info
+{
+	required string generation_date                  = 1;	// Date of gateway generate the message
+	required uint32 packet_size                      = 2;	// Size of transmission in bytes
+	required string ipv4						     = 3;   // IP Address of transmission
+}
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message mtc550_u_firmware_flag_state
+{
+	required bool setup_modified                                                   = 1;
+	required bool firmware_stored                                                  = 2;
+} 
+
+message mtc550_u_firmware
+{
+	required uint32 serial                                                         = 1;	// Device ID
+	required uint32 protocol                                                       = 2;	// Device Protocol
+	required uint32 memory_index                                                   = 3; 	// Position counter
+	required mtc550_u_firmware_flag_state flag_state                               = 4;	// Flags
+} 
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message mtc550_u_gps_modem_flag_state
+{
+	required bool gps_antenna_failure                                              = 1;
+	required bool using_dr                                                         = 2;
+	required bool excess_speed                                                     = 3;
+	required bool excess_stopped_time                                              = 4;
+	required bool voice_call                                                       = 5;
+	required bool force_gprs                                                       = 6;
+	required bool gprs_connection                                                  = 7;
+	required bool gps_signal                                                       = 8;
+	required bool jamming                                                          = 9;
+}
+
+message mtc550_u_gps_modem_sad69_datum
+{
+	required double latitude_sad69		                                           = 1;
+	required double longitude_sad69		                                           = 2;
+}
+
+message mtc550_u_gps_modem_utm_coordinate
+{
+	required string utm					                                           = 1;
+	required double easting				                                           = 2;
+	required double northing			                                           = 3;
+}
+
+message mtc550_u_gps_modem
+{
+	required string date                              			                   = 1;
+	required double latitude                          			                   = 2;
+	required double longitude                         			                   = 3;
+	required uint32 altitude                          			                   = 4;
+	required uint32 course                            			                   = 5;
+	required double speed                             			                   = 6;
+	required uint32 csq                               			                   = 7;
+	required double hdop                              			                   = 8;
+	required uint32 svn                               			                   = 9;
+	required uint32 hodometer                         			                   = 10;
+	required mtc550_u_gps_modem_flag_state flag_state			                   = 11;
+	optional mtc550_u_gps_modem_sad69_datum sad69_datum			                   = 12;
+	optional mtc550_u_gps_modem_utm_coordinate utm_coordinate	                   = 13;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message mtc550_u_inputs
+{
+	required bool ignition                                                         = 1;
+	required bool input_2                                                          = 2;
+	required bool input_3                                                          = 3;
+	required bool input_4                                                          = 4;
+	required bool input_5                                                          = 5;
+	required bool input_6                                                          = 6;
+	required bool input_7                                                          = 7;
+	required bool input_8                                                          = 8;
+	required bool panic                                                            = 9;
+	required bool input_1                                                          = 10;
+}
+
+message mtc550_u_outputs
+{
+	required bool output_1                                                         = 1;
+	required bool output_2                                                         = 2;
+	required bool output_3                                                         = 3;
+	required bool output_4                                                         = 4;
+	required bool output_5                                                         = 5;
+	required bool output_6                                                         = 6;
+	required bool output_7                                                         = 7;
+	required bool output_8                                                         = 8;
+} 
+
+message mtc550_u_hardware_monitor_ranged_state
+{
+	required uint32 internal_battery                                               = 1; // 2 bits
+	required uint32 external_battery                                               = 2; // 2 bits
+	required uint32 power_supply                                                   = 3; // 2 bits
+	required uint32 ad1range                                                       = 4; // 2 bits
+	required uint32 ad2range                                                       = 5; // 2 bits
+	required uint32 ad3range                                                       = 6; // 2 bits
+	required uint32 ad4range                                                       = 7; // 2 bits
+} 
+
+message mtc550_u_hardware_monitor_flag_state
+{
+	required bool low_power                                                        = 1;
+	required bool cfc                                                              = 2;
+	required bool satelital                                                        = 3;
+	required bool sleep_mode                                                       = 4;
+	required bool ad2_filter                                                       = 5;
+	required bool ad3_filter                                                       = 6;
+	required bool ad4_filter                                                       = 7;
+	required bool active_sim_card												   = 8; // 0- Main simcard; 1- SimCard Secondary
+} 
+
+message mtc550_u_hardware_monitor
+{
+	required double power_supply                                                   = 1;
+	required uint32 hourmeter                                                      = 2;
+	required mtc550_u_inputs inputs                                                = 3;
+	required mtc550_u_outputs outputs                                              = 4;
+	required uint32 charge                                                         = 5;
+	required uint32 short_circuit                                                  = 6;
+	required uint32 time                                                           = 7; // output times
+	required uint32 ad1                                                            = 8;
+	required uint32 ad2                                                            = 9;
+	required uint32 ad3                                                            = 10;
+	required uint32 ad4                                                            = 11;
+	required mtc550_u_inputs secure_input_state                                    = 12;
+	required mtc550_u_outputs secure_output_state                                  = 13;
+	required mtc550_u_hardware_monitor_ranged_state ranged_state                   = 14;
+	required mtc550_u_hardware_monitor_flag_state flag_state                       = 15;
+	required uint32 hourmeter_min                                                  = 16;
+}
+
+/////////////////// POSITION.EMBEDDED /////////////////////////
+message mtc550_u_embedded_flag_state
+{
+	required bool working                                                          = 1;
+	required bool on_road                                                          = 2;
+	required bool embedded_client_actions                                          = 3;
+	required bool point_analise                                                    = 4;
+	required bool area_analise                                                     = 5;
+	required bool fence_analise                                                    = 6;
+} 
+
+message mtc550_u_embedded
+{
+	required uint32 point_id                                                       = 1;
+	required uint32 fence_id                                                       = 2;
+	required uint32 area_id                                                        = 3;
+	required uint32 driver_id                                                      = 4;
+	required uint32 driver_login_type                                              = 5;
+	required uint32 anchor                                                         = 6;
+	required uint32 login_action                                                   = 7;
+	required mtc550_u_embedded_flag_state flag_state                               = 8;
+}
+
+/////////////////// POSITION.ACTIONS /////////////////////////
+message mtc550_u_actions_event_values
+{
+  required uint32 action_id                                                        = 1;
+  required mtc550_u_inputs input_changed                                           = 2;
+  required mtc550_u_outputs output_changed                                         = 3;
+  required uint32 interval                                                         = 4;
+}
+
+message mtc550_u_actions_event
+{
+  required uint32 actions_size                                                     = 1; // tamanho do vetor de acoes
+  repeated mtc550_u_actions_event_values action_values                             = 2;
+}
+
+/////////////////// POSITION.MESSAGE /////////////////////////
+
+message mtc550_u_macro_delivery_ctrl_field
+{
+  required uint32 id																   = 1;
+  required uint32 timeout															   = 2;
+  required uint32 time2live															   = 3;
+}
+
+message mtc550_u_macro_field
+{
+	required uint32 field_id                                                       = 1;
+	required string field_value                                                    = 2;
+}
+
+message mtc550_u_macro_action
+{
+  required uint32 action_id		= 1;
+}
+
+message mtc550_u_macro_actions
+{
+  required uint32 time				    = 1;
+  required uint32 actions_size		    = 2;
+  repeated mtc550_u_macro_action action	= 3;
+}
+
+message mtc550_u_macro
+{
+  required uint32 message_id 									         = 1;
+  required uint32 macro_id 										         = 2;
+  required uint32 next_macro_id 								         = 3;
+  required uint32 macro_code 									         = 4;
+  required uint32 fields_count 									         = 5;
+  repeated mtc550_u_macro_field macro_fields 					         = 6;
+  required uint32 actions_count									         = 7;  
+  optional mtc550_u_macro_actions actions						         = 8;
+  required uint32 delivery_ctrl_fields_count					         = 9;
+  repeated mtc550_u_macro_delivery_ctrl_field macro_delivery_ctrl_fields = 10;
+}
+
+message mtc550_u_message_response
+{
+	required uint32 message_readed_id                                              = 1;
+}
+
+message mtc550_u_message
+{
+	optional mtc550_u_message_response message_response                            = 1;
+	optional mtc550_u_macro macro                                                  = 2;
+}
+
+/////////////////// POSITION.TELEMETRY /////////////////////////
+message mtc550_u_delta_telemetry
+{
+  required uint32 delta_size                                                       = 1; // tamanho do vetor de deltas
+  repeated mtc550_u_delta_telemetry_values delta_values                            = 2;
+}
+
+message mtc550_u_delta_telemetry_values
+{
+  required uint32 version                                                          = 1;
+  required uint32 time_on_blue_level                                               = 2;
+  required uint32 type                                                             = 3;
+  required uint32 time_on_red_level                                                = 4;
+  required uint32 maximum_speed                                                    = 5;
+  required uint32 time_on_yellow_level                                             = 6;
+  required uint32 average_speed                                                    = 7;
+  required uint32 hodometer                                                        = 8;
+  required uint32 interval                                                         = 9;
+  required uint32 time_running                                                     = 10;
+  required uint32 time_on_green_level                                              = 11;
+  required uint32 moving_time                                                      = 12;
+  required uint32 stopped_time                                                     = 13;
+  required uint32 maximum_rpm                                                      = 14;
+  required uint32 average_rpm                                                      = 15;
+  required uint32 engine_break_time												= 16;
+  required uint32 clutch_use													= 17;
+  required uint32 break_use														= 18;
+  
+}
+
+message mtc550_u_event_telemetry
+{
+  required uint32 event_size                                                       = 1; // tamanho do vetor de eventos
+  repeated mtc550_u_event_telemetry_values event_values                            = 2;
+}
+
+message mtc550_u_event_telemetry_values
+{
+  required uint32 event_type                                                       = 1;
+  required uint32 speed                                                            = 2; 
+  required uint32 rpm                                                              = 3;
+  required uint32 time                                                             = 4; 
+  required uint32 min_speed                                                        = 5;
+  required uint32 max_speed                                                        = 6;
+  required uint32 end_speed                                                        = 7;
+  required uint32 limit                                                            = 8;
+  required uint32 max_rpm                                                          = 9;
+  required uint32 temperature                                                      = 10;
+  required uint32 voltage                                                          = 11;
+  required uint32 start_speed                                                      = 12;
+  required uint32 speed_trigger_event                                              = 13;
+  required uint32 speed_second_after_trigger                                       = 14;
+  required uint32 speed_second_2                                                   = 15;
+  required uint32 speed_second_3                                                   = 16;
+  required string filter_index													   = 17;
+  required string frame													           = 18;
+  required string can_id													       = 19;
+  required string data_a													       = 20;
+  required string data_b													       = 21;
+  required string bitrate													       = 22;
+  required string events_counter											       = 23;
+  required uint32 final_level_tank_1											   = 24;
+  required uint32 final_level_tank_2											   = 25;
+  required uint32 initial_level_tank_1											   = 26;
+  required uint32 initial_level_tank_2											   = 27;
+  required double kilometers_per_liter											   = 28;
+  required double fuel_consumed													   = 29;
+  required uint32 delta_type													   = 30;
+}
+
+message mtc550_u_telemetry_flag_state
+{
+	required bool pressure_oil_failure                                             = 1;
+	required bool clutch_pressing_excess                                           = 2;
+	required bool windshield_wiper_on                                              = 3;
+	required bool high_gear_box_st                                                 = 4;
+	required bool engine_break_st                                                  = 5;
+	required bool mx100_output_state                                               = 6;
+	required bool neutral_driving                                                  = 7;
+	required bool ign_no_engine_rotation                                           = 8;
+	required bool low_gear_time_excess                                             = 9;
+	required bool speed_excess                                                     = 10;
+	required bool rotation_excess                                                  = 11;
+	required bool engine_tempetature_override                                      = 12;
+	required bool alternator_voltage                                               = 13;
+	required bool engine_on                                                        = 14;
+	required bool break_st                                                         = 15;
+	required bool clutch_st                                                        = 16;
+	required bool oil_pressure_st                                                  = 17;
+	required bool windshield_wiper_st                                              = 18;
+	required bool ibutton_presence                                                 = 19;
+	required bool stopped_time_excess                                              = 20;
+	required uint32 delta_config_id                                                = 21;
+	required uint32 flags_value				                                       = 22;
+}
+
+message mtc550_u_telemetry
+{
+	required uint32 protocol_version                                               = 1;
+	required uint32 engine_temperature                                             = 2;
+	required uint32 fuel_level                                                     = 3;
+	required uint32 fuel_level_tank_1                                              = 4;
+	required uint32 fuel_level_tank_2                                              = 5;
+	required uint32 sensors_count                                                  = 6;
+	required uint32 time_running                                                   = 7;
+	required uint32 time_on_blue_level                                             = 8;
+	required uint32 time_on_yellow_level                                           = 9;
+	required uint32 time_on_green_level                                            = 10;
+	required uint32 time_on_red_level                                              = 11;
+	required uint32 moving_time                                                    = 12;
+	required uint32 stopped_time                                                   = 13;
+	required uint32 hodometer                                                      = 14;
+	required uint32 speed                                                          = 15;
+	required uint32 rpm                                                            = 16;
+	required uint32 ignition_voltage                                               = 17;
+	required mtc550_u_telemetry_flag_state telemetry_flag_state                    = 18;	
+	optional mtc550_u_delta_telemetry delta                                        = 19;
+	optional mtc550_u_event_telemetry event                                        = 20;
+}	
+
+/////////////////// POSITION.ACCELEROMETER_DATA /////////////////////////
+
+message mtc550_u_accelerometer_flags
+{
+  required bool moving                                                             = 1;
+  required bool pitching_alarm                                                     = 2;
+  required bool rolling_alarm                                                      = 3;
+  required bool hard_break                                                         = 4;
+  required bool hard_acceleration                                                  = 5;
+  required bool dirt_road                                                          = 6;
+  required uint32 calibrate_state                                                  = 7;
+  required bool trailer_alarm													   = 8;
+}
+
+message mtc550_u_accelerometer
+{
+   required uint32 version                                                         = 1;
+   required sint32 pitching                                                        = 2;
+   required uint32 event_number                                                    = 3;
+   required sint32 rolling                                                         = 4;
+   required mtc550_u_accelerometer_flags flags                                     = 5;
+   optional uint32 flags_value				                                       = 6;      
+}
+
+message mtc550_u_acc_evt_moving
+{
+  required uint32 type                                                             = 1;
+  required bool move_type                                                          = 2;
+}
+
+message mtc550_u_acc_evt_rolling
+{
+  required uint32 type                                                             = 1;
+  required sint32 angle_value                                                      = 2;
+  required sint32 angle_reference                                                  = 3;
+}
+
+message mtc550_u_acc_evt_pitching
+{
+  required uint32 type                                                             = 1;
+  required sint32 angle_value                                                      = 2;
+  required sint32 angle_reference                                                  = 3;
+}
+
+message mtc550_u_acc_evt_trailer
+{
+  required uint32 type                                                             = 1;
+  required uint32 speed                                                            = 2;
+}
+
+message mtc550_u_acc_evt_dirt_road
+{
+  required uint32 type                                                             = 1;
+  required double max_g_variation                                                  = 2;
+  required uint32 time                                                             = 3;
+}
+
+message mtc550_u_acc_evt_hard_break
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message mtc550_u_acc_evt_spine
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message mtc550_u_acc_evt_hard_acceleration
+{
+   required uint32 type                                                            = 1;
+   required double g_mean                                                          = 2;
+   required double g_max                                                           = 3;
+   required uint32 start_speed                                                     = 4;
+   required uint32 end_speed                                                       = 5;
+   required uint32 time                                                            = 6;
+   required uint32 time_g_max													   = 7;
+}
+
+message mtc550_u_accelerometer_data
+{
+  required mtc550_u_accelerometer data									           = 1;
+  repeated mtc550_u_acc_evt_moving acc_evt_moving						           = 2;
+  repeated mtc550_u_acc_evt_rolling acc_evt_rolling						           = 3;
+  repeated mtc550_u_acc_evt_pitching acc_evt_pitching					           = 4;
+  repeated mtc550_u_acc_evt_trailer acc_evt_trailer						           = 5;
+  repeated mtc550_u_acc_evt_spine acc_evt_spine							           = 6;
+  repeated mtc550_u_acc_evt_hard_break acc_evt_hard_break				           = 7;
+  repeated mtc550_u_acc_evt_hard_acceleration acc_evt_hard_acceleration            = 8;
+  repeated mtc550_u_acc_evt_dirt_road acc_evt_dirt_road					           = 9;
+}
+
+/////////////////// POSITION.OPEN_ROUTE /////////////////////////
+message mtc550_u_open_route_id
+{
+   required uint32 route_id		                                                       = 1;
+}
+
+message mtc550_u_open_route_data
+{
+  required mtc550_u_open_route_id id											   = 1;
+  required uint32 open_code		                                                   = 2;
+}
+
+/////////////////// POSITION.UNEXECUTED_POINTS	/////////////////////////
+message mtc550_u_unexecuted_point_flags
+{
+  required bool wrong_sequence	= 1;
+  required bool wrong_direction = 2;
+  required uint32 value			= 3;
+}
+
+message mtc550_u_unexecuted_point
+{
+  required uint32 point_order						= 1;
+  required mtc550_u_unexecuted_point_flags flags	= 2;
+}
+
+message mtc550_u_unexecuted_points_data
+{
+  required uint32 size										= 1;
+  repeated mtc550_u_unexecuted_point unexecuted_point		= 2;
+}
+
+/////////////////// POSITION.TRIP_DATA /////////////////////////
+message mtc550_u_trip_data_flags
+{
+ required bool point_of_route                                                      = 1;
+ required uint32 point_state                                                       = 2;
+ required bool trip_opened                                                         = 3;
+ required bool sequence_break                                                      = 4;
+}
+
+message mtc550_u_trip_route_info
+{
+  required bool open_route_info				= 1;
+  required bool unexecuted_points			= 2;
+}
+
+message mtc550_u_trip_data
+{
+  required uint32 id                                                               = 1;
+  required mtc550_u_trip_route_info route_info                                     = 2;
+  required mtc550_u_trip_data_flags flags                                          = 3;
+  required uint32 time_stopped                                                     = 4;
+  required uint32 port_state                                                       = 5;
+  required uint32 order                                                            = 6;
+}
+
+/////////////////// POSITION.COUNTERS_DATA /////////////////////////
+message mtc550_u_counters_data
+{
+	 required uint32 input01                           = 1;
+	 required uint32 input02                           = 2;
+	 required uint32 input03                           = 3;
+	 required uint32 input04                           = 4;
+	 required uint32 input05                           = 5;
+	 required uint32 input06                           = 6;
+	 required uint32 input07                           = 7;
+}
+
+/////////////////// POSITION.FREE_DATA /////////////////////////
+
+message mtc550_u_free_data_packet
+{
+  optional uint32 source 										   = 1;
+  optional uint32 size 											   = 2;
+  optional string buffer 										   = 3;
+
+}
+message mtc550_u_free_data
+{
+  optional uint32 size 											   = 1;
+  repeated mtc550_u_free_data_packet free_data_packet 			   = 2;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550_u_position
+{
+	required mtc550_u_firmware firmware                                            = 1;
+	required mtc550_u_gps_modem gps_modem                                          = 2;
+	required mtc550_u_hardware_monitor hardware_monitor                            = 3;
+	required mtc550_u_embedded embedded                                            = 4;
+	required mtc550_u_info info													   = 5;
+	optional mtc550_u_actions_event action_event                                   = 6;
+	optional mtc550_u_message data_terminal_message                                = 7;
+	optional mtc550_u_telemetry telemetry                                          = 8;
+	optional mtc550_u_accelerometer_data accelerometer_data                        = 9;
+	optional mtc550_u_trip_data trip_data                                          = 10;
+	optional mtc550_u_open_route_data open_route_data							   = 11;
+	optional mtc550_u_free_data free_data										   = 12;
+	optional mtc550_u_counters_data counters_data								   = 13;
+	optional mtc550_u_unexecuted_points_data unexecuted_points_data				   = 14;
+}
+
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////// SETUP ///////////////////////////////
+/////////////////////////////////////////////////////////////////
+message mtc550_u_setup_header
+{
+  required string firmware_version                                                 = 1;
+  required string setup_version                                                    = 2;
+  required string stored_date                                                      = 3;
+  required string timestamp                                                        = 4; 
+}
+
+message mtc550_u_config_connection
+{
+  required string ip1                                                              = 1;
+  required uint32 port1                                                            = 2;  
+  required string ip2                                                              = 3;
+  required uint32 port2                                                            = 4;  
+  required string ip3                                                              = 5;
+  required uint32 port3                                                            = 6;  
+  required string pin                                                              = 7;
+  required string apn                                                              = 8;
+  required string apn_user                                                         = 9;
+  required string apn_password                                                     = 10;
+  required string dtmf_password                                                    = 11;
+  required uint32 wise_channel                                                     = 12;
+  required uint32 transmission_interval_with_ignition_on                           = 13;
+  required uint32 transmission_interval_in_panic                                   = 14;
+  required uint32 transmission_interval_with_ignition_off                          = 15;
+  required uint32 gprs_packages_download_count                                     = 16;
+  required uint32 sat_transmission_interval_with_ignition_on                       = 17;
+  required uint32 sat_transmission_interval_in_panic                               = 18;
+  required uint32 sat_transmission_interval_with_ignition_off                      = 19;
+  required uint32 interval_without_grps_to_activate_sat_transmission               = 20;
+  required uint32 transmission_interval_on_internal_battery                        = 21;
+  required uint32 transmission_interval_low_power                                  = 22;
+  required uint32 transmission_interval_sleep                                      = 23;
+  required string pin2                                                             = 24;
+  required string apn2                                                             = 25;
+  required string apn2_user                                                        = 26;
+  required string apn2_password                                                    = 27;
+  required string callback_number									               = 28;
+  required uint32 transmission_interval_min_sat                                    = 29;
+
+}
+
+message mtc550_u_config_equipment
+{
+  required bool use_satelital                                                      = 1;
+  required bool use_td                                                             = 2;
+  required bool use_telemetry                                                      = 3;
+  required bool use_internal_telemetry                                             = 4;
+  required bool use_accelerometer	                                               = 5;
+  required bool use_travel			                                               = 6;
+  required bool use_satellite2		                                               = 7;
+}
+
+message mtc550_u_config_ad_limit_range
+{
+  required uint32 lower                                                            = 1;
+  required uint32 upper                                                            = 2;
+}
+
+message mtc550_u_config_library_id
+{
+  required uint32 fence_library_id                                                 = 1;
+  required uint32 area_library_id                                                  = 2;  
+  required uint32 embedded_action_library_id                                       = 3;
+  required uint32 macro_library_id                                                 = 4;
+  required uint32 route_library_id                                                 = 5;
+  required uint32 point_library_id                                                 = 6;
+  required uint32 audio_library_id                                                 = 7;
+  required uint32 message_library_id                                               = 8;
+  required uint32 driver_library_id                                                = 9;
+  required uint32 client_embedded_action_library_id                                = 10;
+}
+
+message mtc550_u_config_input_time
+{
+	required uint32 ignition                                                       = 1;
+	required uint32 input_2                                                        = 2;
+	required uint32 input_3                                                        = 3;
+	required uint32 input_4                                                        = 4;
+	required uint32 input_5                                                        = 5;
+	required uint32 input_6                                                        = 6;
+	required uint32 input_7                                                        = 7;
+	required uint32 input_8                                                        = 8;
+	required uint32 panic                                                          = 9;
+	required uint32 input_1                                                        = 10;
+}
+
+message mtc550_u_config_cameras
+{
+  required bool camera1                                                            = 1;
+  required bool camera2                                                            = 2;
+  required bool camera3                                                            = 3;
+  required bool camera4                                                            = 4;
+}
+
+message mtc550_u_config_ad_alarm
+{
+  required uint32 ad1                                                              = 1;
+  required uint32 ad2                                                              = 2;
+  required uint32 ad3                                                              = 3;
+  required uint32 ad4                                                              = 4;
+}
+
+message mtc550_u_config_output_name
+{
+  required string output1                                                          = 1;
+  required string output2                                                          = 2;
+  required string output3                                                          = 3;
+  required string output4                                                          = 4;
+  required string output5                                                          = 5;
+  required string output6                                                          = 6;
+  required string output7                                                          = 7;
+  required string output8                                                          = 8;
+}
+
+message mtc550_u_config_input_name
+{
+  required bytes input1                                                            = 1;
+  required bytes input2                                                            = 2;
+  required bytes input3                                                            = 3;
+  required bytes input4                                                            = 4;
+  required bytes input5                                                            = 5;
+  required bytes input6                                                            = 6;
+  required bytes input7                                                            = 7;
+  required bytes input8                                                            = 8;
+}
+
+message mtc550_u_config_mx100_io_config
+{
+  required bool buzzer_alert                                                       = 1;
+  required bool ignition_overtime                                                  = 2;
+  required bool neutral_driving                                                    = 3;
+  required bool deacceleration                                                     = 4;
+  required bool acceleration                                                       = 5;
+  required bool second_speed                                                       = 6;
+  required bool clutch_overtime                                                    = 7;
+  required bool overspeed                                                          = 8;
+  required bool red_range_excess                                                   = 9;
+  required bool blue_range_excess                                                  = 10;
+  required bool stopped_overtime                                                   = 11;
+  required bool oil_fault                                                          = 12;
+  required bool temperature_fault                                                  = 13;
+  required bool alternator_fault                                                   = 14;
+}
+
+message mtc550_u_config_mx100
+{
+  required uint32 pulses_per_hundred                                               = 1;
+  required uint32 pulses_per_rotation                                              = 2;
+  required uint32 min_blue_range_rotation                                          = 3;
+  required uint32 max_blue_range_rotation                                          = 4;
+  required uint32 min_green_range_rotation                                         = 5;  
+  required uint32 max_green_range_rotation                                         = 6;
+  required uint32 min_red_range_rotation                                           = 7;  
+  required uint32 min_speed_to_neutral_driving                                     = 8;
+  required uint32 max_speed_to_pull_second_gear                                    = 9;
+  required uint32 departure_rpm_speed_ratio                                        = 10;
+  required uint32 max_coolant_temperature                                          = 11;
+  required uint32 max_alternator_voltage                                           = 12;
+  required uint32 min_alternator_voltage                                           = 13;
+  required uint32 time_to_alternator_fault                                         = 14;
+  required uint32 time_to_oil_pressure_fault                                       = 15;
+  required uint32 time_to_clutch_excess                                            = 16;
+  required uint32 time_to_red_range_excess                                         = 17;
+  required uint32 time_to_ignition_on_excess                                       = 18;
+  required uint32 time_to_temperature_fault                                        = 19;  
+  required uint32 time_to_neutral_driving                                          = 20;
+  required uint32 time_to_raining                                                  = 21;  
+  required uint32 time_to_still_raining                                            = 22;
+  required uint32 time_to_blue_range_excess                                        = 23;
+  required uint32 allowed_acceleration                                             = 24;
+  required uint32 allowed_deacceleration                                           = 25;
+  required uint32 time_to_overspeed_excess                                         = 26;
+  required uint32 pulses_per_hundred2                                              = 27;
+  required mtc550_u_config_mx100_io_config io_config                               = 28;
+}
+
+message mtc550_u_config_ad_filter
+{
+  required bool ad2                                                                = 1;
+  required bool ad3                                                                = 2;
+  required bool ad4                                                                = 3;
+  required uint32 steps_interval                                                   = 4;
+  required uint32 variation1                                                       = 5;
+  required uint32 variation2                                                       = 6;
+  required uint32 variation3                                                       = 7;
+  required uint32 step1                                                            = 8;
+  required uint32 step2                                                            = 9;
+  required uint32 step3                                                            = 10;
+  required uint32 ad2_snapshot                                                     = 11;
+  required uint32 ad3_snapshot                                                     = 12;
+  required uint32 ad4_snapshot                                                     = 13;
+}
+
+message mtc550_u_mx100_accumulators
+{
+  required uint32 running                                                          = 1;
+  required uint32 blue_range                                                       = 2;
+  required uint32 yellow_range                                                     = 3;
+  required uint32 green_range                                                      = 4;
+  required uint32 red_range                                                        = 5;
+  required uint32 on_route                                                         = 6;
+  required uint32 stopped                                                          = 7;
+  required uint32 breaking                                                         = 8;
+  required uint32 motor_breaking                                                   = 9;
+  required uint32 total_pulse                                                      = 10;
+  required uint32 total_pulse2                                                     = 11;
+  required uint32 total_distance                                                   = 12;
+}
+
+message mtc550_u_cfg_input_types
+{
+  required uint32 input_1                                                          = 1;
+  required uint32 input_2                                                          = 2;
+  required uint32 input_3                                                          = 3;
+  required uint32 input_4                                                          = 4;
+  required uint32 input_5                                                          = 5;
+  required uint32 input_6                                                          = 6;
+  required uint32 input_7                                                          = 7;
+  required uint32 input_8                                                          = 8;
+  required uint32 input_9                                                          = 9;
+  required uint32 input_10                                                         = 10;
+  required uint32 input_11                                                         = 11;
+  required uint32 input_12                                                         = 12;
+  required uint32 input_13                                                         = 13;
+  required uint32 input_14                                                         = 14;
+  required uint32 input_15                                                         = 15;
+  required uint32 input_16                                                         = 16;
+}
+
+message mct550_u_accelerometer_alarm_config
+{
+	required bool move_alarm                                                       = 1;
+	required bool stop_alarm                                                       = 2;
+	required bool rolling_alarm                                                    = 3;
+	required bool pitching_alarm                                                   = 4;
+	required bool trailer_alarm                                                    = 5;
+	required bool spine_alarm                                                      = 6;;
+	required bool hard_break_alarm                                                 = 7;
+	required bool hard_accelerate_alarm                                            = 8;
+	required bool dirt_road_alarm                                                  = 9;
+}
+
+message mtc550_u_accelerometer_config
+{
+  required uint32 calibrate_state                                                  = 1;
+  required sint32 min_pitching                                                     = 2;
+  required sint32 max_pitching                                                     = 3;
+  required sint32 min_rolling                                                      = 4;
+  required sint32 max_rolling                                                      = 5;
+
+  required sint32 g_alarm_start_positive_x                                         = 6;
+  required sint32 g_alarm_start_positive_y                                         = 7;
+  required sint32 g_alarm_start_positive_z                                         = 8;
+  required sint32 g_alarm_end_positive_x                                           = 9;
+  required sint32 g_alarm_end_positive_y                                           = 10;
+  required sint32 g_alarm_end_positive_z                                           = 11;
+  required uint32 scale_type_positive_x                                            = 12;
+  required uint32 scale_type_positive_y                                            = 13;
+  required uint32 scale_type_positive_z                                            = 14;
+  required uint32 debounce_moving                                                  = 15;
+
+  required sint32 g_alarm_start_negative_x                                         = 16;
+  required sint32 g_alarm_start_negative_y                                         = 17;
+  required sint32 g_alarm_start_negative_z                                         = 18;
+  required sint32 g_alarm_end_negative_x                                           = 19;
+  required sint32 g_alarm_end_negative_y                                           = 20;
+  required sint32 g_alarm_end_negative_z                                           = 21;
+  required uint32 scale_type_negative_x                                            = 22;
+  required uint32 scale_type_negative_y                                            = 23;
+  required uint32 scale_type_negative_z                                            = 24;
+  required uint32 debounce_stopped                                                 = 25;
+  required uint32 calibration_control                                              = 26;
+
+  required uint32 g_alarm_enter_dirt                                               = 27;
+  required uint32 g_alarm_exit_dirt                                                = 28;   
+  required uint32 max_speed_irregular_track                                        = 29;
+  required sint32 remap_axis_x                                                     = 30;
+  required sint32 remap_axis_y                                                     = 31;
+  required sint32 remap_axis_z                                                     = 32;
+
+  required mct550_u_accelerometer_alarm_config alarm_config                        = 33;
+
+  required uint32 max_speed_irregular_track_with_rain                              = 34;
+  required uint32 g_alarm_debounce_time                                            = 35;
+  }
+
+message mtc550_u_config_blackbox_event_config
+{
+	required bool buzzer                                                           = 1;
+	required bool ignition_overtime                                                = 2;
+	required bool speed_on_neutral                                                 = 3;
+	required bool deacceleration                                                   = 4;
+	required bool acceleration                                                     = 5;
+	required bool second_speed                                                     = 6;
+	required bool clutch_overtime                                                  = 7;
+	required bool overspeed                                                        = 8;
+	required bool red_range_excess                                                 = 9;
+	required bool blue_range_excess                                                = 10;
+	required bool stopped_overtime                                                 = 11;
+	required bool oil_fault                                                        = 12;
+	required bool temperature_fault                                                = 13;
+	required bool alternator_fault                                                 = 14;
+	required bool high_speed_alarm                                                 = 15;
+	required bool high_rpm_alarm                                                   = 16;
+}
+
+message mtc550_u_config_internal_modules
+{
+	required bool use_dual_sim		                                               = 1;
+	required bool use_one_wire		                                               = 2;
+}
+
+message mtc550_u_additional_options
+{
+ required uint32 invalid_ibutton_options			                                   = 1;	
+}
+
+message mtc550_u_config
+{
+  required uint32 hodometer                                                        = 1;  
+  required uint32 group_area_id                                                    = 2;
+  required uint32 hourmeter                                                        = 3;
+  required uint32 client_id                                                        = 4;
+  required uint32 vehicle_id                                                       = 5;
+  required uint32 last_fence_id                                                    = 6;
+  required mtc550_u_config_connection connection_configuration                     = 7;
+  required sint32 gmt_adjust                                                       = 8;
+  required uint32 input1_gain                                                      = 9;
+  required uint32 input2_gain                                                      = 10;
+  required uint32 output1_audio_adjust                                             = 11;
+  required uint32 output2_audio_adjust                                             = 12;
+  required uint32 max_speed                                                        = 13;
+  required uint32 max_speed_on_road                                                = 14;
+  required uint32 time_to_max_speed_event                                          = 15;
+  required uint32 min_speed                                                        = 16;
+  required mtc550_u_config_equipment equipment_configuration                       = 17; 
+  required uint32 time_to_excess_stopped                                           = 18;
+  required uint32 max_speed_on_rain                                                = 19;
+  required uint32 max_speed_on_road_raining                                        = 20;
+  required mtc550_u_config_ad_limit_range ad1_limit_range                          = 21;
+  required mtc550_u_config_ad_limit_range ad2_limit_range                          = 22;
+  required mtc550_u_config_ad_limit_range ad3_limit_range                          = 23;
+  required mtc550_u_config_ad_limit_range ad4_limit_range                          = 24;
+  required mtc550_u_config_ad_limit_range external_battery_limit_range             = 25;
+  required mtc550_u_config_library_id library_id                                   = 26;
+  required uint32 vcc_internal_battery                                             = 27;
+  required uint32 vcc_external_battery                                             = 28;
+  required uint32 low_power_mode_time                                              = 29;
+  required uint32 group_point_id                                                   = 30;
+  required uint32 sleep_mode_time                                                  = 31;  
+  required mtc550_u_outputs output_inverted_logic                                  = 32;
+  required mtc550_u_config_input_time input_activate_time                          = 33;
+  required mtc550_u_config_input_time input_deactivate_time                        = 34;
+  required uint32 jpeg_resolution                                                  = 35;
+  required mtc550_u_config_cameras camera_configuration                            = 36;
+  required mtc550_u_config_ad_alarm ad_alarm_configuration                         = 37;
+  required string telemetry_version                                                = 38;
+  required string io_module_version                                                = 39;
+  required uint64 esn                                                              = 40;
+  required mtc550_u_config_output_name output_name                                 = 41;
+  required mtc550_u_config_input_name input_name                                   = 42;
+  required string td_version                                                       = 43;
+  required mtc550_u_config_mx100 mx100_configuration                               = 44;
+  required uint32 anchor_radius                                                    = 45;
+  required uint32 stopped_time_notification_timer                                  = 46;
+  required sint32 anchor_latitude                                                  = 47;
+  required sint32 anchor_longitude                                                 = 48;
+  required mtc550_u_config_ad_filter ad_filter_configuration                       = 49;
+  required uint32 crc                                                              = 50; 
+  required uint32 crc_fake                                                         = 51; 
+  
+  required uint32 log_direction                                                    = 52;
+  required uint32 ptr_read_log                                                     = 53;
+  required mtc550_u_mx100_accumulators mx100_accumulators                          = 54;
+  required uint32 expansion_accumulator                                            = 55;
+  required mtc550_u_cfg_input_types cfg_input_types                                = 56;
+  required uint32 max_time_jamming_active                                          = 57;
+  required uint32 max_time_jamming_inactive                                        = 58;
+  required uint32 max_time_jamming_detect                                          = 59;
+  required uint32 double_burst                                                     = 60;
+  required uint32  black_box_interval                                              = 61;
+  required mtc550_u_accelerometer accelerometer                                    = 62;
+  required mtc550_u_trip_data trip_data                                            = 63;
+  required mtc550_u_accelerometer_config accelerometer_config                      = 64;
+  required mtc550_u_config_blackbox_event_config blackbox_event_config             = 68;
+  required uint32 mx100_odm_ad2_threshold                                          = 69;
+  required mtc550_u_config_internal_modules internal_modules                       = 70; 
+  required string setup_password                                                   = 71;
+  required uint32 input1_counter		                                           = 72;
+  required uint32 input2_counter		                                           = 73;
+  required uint32 input3_counter		                                           = 74;
+  required uint32 input4_counter		                                           = 75;
+  required uint32 input5_counter		                                           = 76;
+  required uint32 input6_counter		                                           = 77;
+  required uint32 input7_counter		                                           = 78;
+  required uint32 input8_counter		                                           = 79;
+  required uint32 fmsDataSet			                                           = 80;
+  required mtc550_u_additional_options additional_options		                   = 81;
+  required bool satellite_type_config											   = 82;
+}
+
+message mtc550_u_setup
+{
+  required mtc550_u_setup_header header                                            = 1;
+  required mtc550_u_position position                                              = 2;
+  required mtc550_u_telemetry telemetry                                            = 3;
+  required mtc550_u_config config                                                  = 4;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////// BLACK BOX MINUTE //////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550_u_black_box_second_flags
+{
+  required bool ignition                                                           = 1;
+  required uint32 course                                                           = 2;
+}
+
+message mtc550_u_black_box_second
+{
+  required uint32 odometer_move                                                    = 1;
+  required double latitude_move                                                    = 2;
+  required double longitude_move                                                   = 3;
+  required uint32 rpm                                                              = 4;
+  required mtc550_u_black_box_second_flags flags                                   = 5;
+  required uint32 speed                                                            = 6; 
+  required uint32 second_id                                                        = 7;
+}
+
+message mtc550_u_black_box_minute_flags
+{
+  required bool gps_signal                                                         = 1;
+  required bool gps_antenna_failure                                                = 2;
+  required bool gps_failure_type                                                   = 3;
+  required bool speed_excess                                                       = 4;
+  required bool stopped_time_excess                                                = 5;
+  required bool low_power                                                          = 6;
+  required uint32 driver_login_type                                                = 7;
+  required bool voice_call                                                         = 8;
+  required bool working                                                            = 9;
+  required bool sleep                                                              = 10;
+  required bool on_road                                                            = 11;
+  required bool alarm                                                              = 12;
+  required uint32 anchor                                                           = 13;        
+  required bool jammer                                                             = 14;
+}
+
+message mtc550_u_black_box_event
+{
+  required uint32 type                                                             = 1;
+  required uint32 second                                                           = 2;
+  required uint32 value                                                            = 3;
+}
+
+message mtc550_u_black_box_inputs
+{
+	required bool input_2                                                          = 1;
+	required bool input_3                                                          = 2;
+	required bool input_4                                                          = 3;
+	required bool input_5                                                          = 4;
+	required bool input_6                                                          = 5;
+	required bool input_7                                                          = 6;
+	required bool input_8                                                          = 7;
+	required bool panic                                                            = 8;
+}
+
+message mtc550_u_black_box_minute
+{
+  required uint32 serial                                                           = 1;	// Device ID
+  required uint32 protocol                                                         = 2;	// Device Protocol
+  required string id                                                               = 3; // Minute Id
+  required uint32 version                                                          = 4;
+  required mtc550_u_black_box_inputs base_inputs                                   = 5;
+  required mtc550_u_outputs base_outputs                                           = 6;
+  required mtc550_u_black_box_minute_flags flags                                   = 7;
+  repeated mtc550_u_black_box_second second                                        = 8;
+  repeated mtc550_u_black_box_event event                                          = 9;
+} 
+
+/////////////////////////////////////////////////////////////////
+////////////////// GET PARAMETERS MESSAGE ///////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550_u_parameters
+{
+  required uint32 serial						= 1;
+  required uint32 protocol						= 2;
+  required uint32 simcard				        = 3;
+  required string primary_iccid				    = 4;
+  required string secondary_iccid				= 5;
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////////// PRESENTATION MESSAGE ////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550_u_presentation
+{
+  required uint32 serial				= 1;
+  required uint32 protocol				= 2;
+  required uint32 client_id				= 3;
+  required string firmware_version		= 4;
+  required string setup_record_date		= 5;
+  required uint64 esn					= 6;
+  required string date					= 7;
+}
+
+/////////////////////////////////////////////////////////////////
+//////////////// BLACK BOX INFO MESSAGE /////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc550_u_black_box_info_status
+{
+  required uint32 version						= 1; // versão
+  required string status						= 2; // Status, [idle, discharge, canceled, Searching]
+  required string initial_timestamp				= 3; // Timestamp1 do range inicial do comando de descarga;
+  required string final_timestamp				= 4; // Timestamp1 do range final do comando de descarga;
+  required string last_minute_sent_timestamp	= 5; // Timestamp1 do ultimo minuto descarregado;
+  required uint32 total_size					= 6; // Total de bytes do range requisitado;
+  required uint32 total_size_sent				= 7; // Total de bytes já descarregado
+}
+
+message mtc550_u_black_box_info
+{
+  required uint32 serial									= 1;
+  required uint32 protocol									= 2;
+  repeated mtc550_u_black_box_info_status status			= 3;
+}

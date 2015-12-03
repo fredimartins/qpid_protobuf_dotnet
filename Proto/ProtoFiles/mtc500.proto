@@ -1,0 +1,515 @@
+package maxtrack.pb.mtc500;
+
+// option java_package = "maxtrack.xxx.xx";
+
+/////////////////// POSITION.FIRMWARE /////////////////////////
+message mtc500_u_firmware
+{
+	required uint32 serial                           = 1;	// Device ID
+	required uint32 protocol                         = 2;	// Device Protocol
+	required uint32 memory_index                     = 3; 	// Position counter
+} 
+
+/////////////////// POSITION.GPS_MODEM /////////////////////////
+message mtc500_u_gps_modem_flag_state
+{
+	required bool gps_antenna_failure = 1;
+	required bool gsm_jamming         = 2;
+	required bool excess_speed        = 3;
+	required bool excess_stopped_time = 4;
+	required bool gprs_connection     = 5;
+	required bool gps_signal          = 6;
+}
+
+message mtc500_u_gps_modem_sad69_datum
+{
+	optional double latitude_sad69		= 1;
+	optional double longitude_sad69		= 2;
+}
+
+message mtc500_u_gps_modem_utm_coordinate
+{
+	optional string utm					= 1;
+	optional double easting				= 2;
+	optional double northing			= 3;
+}
+
+message mtc500_u_gps_modem
+{
+	required string date                              			= 1; 
+	required double latitude                          			= 2;
+	required double longitude                         			= 3;
+	required uint32 course                            			= 4;
+	required double speed                             			= 5;
+	required uint32 csq                               			= 6;
+	required double hdop                              			= 7;
+	required uint32 svn											= 8;
+	required uint32 hodometer									= 9;
+	required mtc500_u_gps_modem_flag_state flag_state			= 10;
+	optional mtc500_u_gps_modem_sad69_datum sad69_datum			= 11;
+	optional mtc500_u_gps_modem_utm_coordinate utm_coordinate	= 12;
+} 
+
+/////////////////// POSITION.HARDWARE_MONITOR /////////////////////////
+message mtc500_u_inputs
+{
+	required bool ignition = 1;
+    required bool panic    = 2;	
+    required bool input_1  = 3;
+	required bool input_2  = 4;
+	required bool input_3  = 5;
+	required bool input_4  = 6;
+	required bool input_5  = 7;
+}
+
+message mtc500_u_outputs
+{
+	required bool output_1 = 1;
+	required bool output_2 = 2;
+	required bool output_3 = 3;
+	required bool output_4 = 4;
+} 
+
+message mtc500_u_hardware_monitor_flag_state
+{
+	required bool main_serial       = 1;
+	required bool additional_serial = 2;
+	required bool internal_alarm    = 3;
+	required bool battery_failure   = 4;
+    required bool battery_charging  = 5;
+    required bool schedule_block    = 6;
+} 
+
+message mtc500_u_hardware_monitor
+{
+	required double power_supply                                 = 1;
+	required uint32 hourmeter                                    = 2;
+    required double temperature                                  = 3;
+    required uint32 counter_1                                    = 4;
+    required uint32 counter_2                                    = 5;
+    required uint32 counter_3                                    = 6;
+	required mtc500_u_inputs inputs                              = 7;
+	required mtc500_u_outputs outputs                            = 8;
+	required mtc500_u_hardware_monitor_flag_state flag_state     = 9;
+}
+
+/////////////////// POSITION.EMBEDDED /////////////////////////
+message mtc500_u_embedded_flag_state
+{
+	required bool closed_trip             = 1;
+	required bool opened_trip             = 2;
+	required bool fence_out               = 3;
+	required bool event_changed           = 4;
+	required bool memory_filter_not_set   = 5;
+	required bool reverse_trip            = 6;
+    required bool reference_point         = 7;
+    required bool point_in                = 8;
+    required bool point_out               = 9;
+} 
+
+message mtc500_u_embedded
+{
+	required uint32 route_id                         = 1;
+	required uint32 point_id                         = 2;
+	required uint32 console_event                    = 3;
+    optional uint32 driver_id                        = 4;
+	required mtc500_u_embedded_flag_state flag_state = 5;
+}
+
+/////////////////// POSITION.MESSAGE /////////////////////////
+message mtc500_u_macro_field
+{
+	required uint32 field_id    = 1;
+	required string field_value = 2;
+}
+
+message mtc500_u_macro
+{
+	required uint32 message_id                 = 1;
+	required uint32 macro_id                   = 2;
+	required uint32 next_macro_id              = 3;
+	required uint32 macro_code                 = 4;
+	required uint32 fields_count               = 5;
+	repeated mtc500_u_macro_field macro_fields = 6;
+}
+
+message mtc500_u_td_setup_config
+{
+	required bool unlocked					        = 1;
+	required bool start_screen						= 2;
+	required bool show_gprs_status			        = 3;
+	required bool show_gps_status			        = 4;
+	required bool show_gprs_status_always_on        = 5;
+	required bool send_form_by_satelital	        = 6;
+	required bool send_satelital_position	        = 7;
+	required bool send_free_data_by_sat_frag_pkg	= 8;
+	required uint32 logout_timer				     = 9;
+	required uint32 low_power				        = 10;
+	required uint32 time_change_to_satelital        = 11;
+	required uint32 satelital_transmission_interval = 12;
+	required uint32 output_to_change				= 13;
+	required bool output_activate_type				= 14;
+	required bool disable_output_control	        = 15;
+}
+
+message mtc500_u_td_setup
+{
+	required uint32 serial				         = 1;
+	required string firmware			         = 2;
+	required uint32 messages_library_id	         = 3;
+	required uint32 routes_library_id	         = 4;
+	required uint32 drivers_library_id	         = 5;
+	required uint32 screens_library_id	         = 6;
+	required uint32 backlight_time		         = 7;
+	required uint32 buzzer_time			         = 8;
+	required string default_message		         = 9;
+	required uint32 hybrid				         = 10;
+	required mtc500_u_td_setup_config config     = 11;
+	required uint32 messages_library_size	     = 12;
+	required uint32 routes_library_size	         = 13;
+	required uint32 drivers_library_size	     = 14;
+	required uint32 screens_library_size	     = 15;
+	required uint32 satellital_mtc_fail		     = 16;
+	required uint32 satellital_mtc_fail_time     = 17;
+	required uint32 satellite_trans_ignition_off = 18;
+	required uint32 low_power2					 = 19;
+}
+
+message mtc500_u_message
+{
+	required uint32 type               = 1;
+    optional string data               = 2;
+    optional uint32 additional_data    = 3;
+    optional mtc500_u_macro macro      = 4;
+	optional string bin_data		   = 5;
+	optional mtc500_u_td_setup setup   = 6;
+}
+
+/////////////////// POSITION.TELEMETRY /////////////////////////
+message mtc500_u_delta_telemetry
+{
+  required uint32 delta_size                            = 1; // tamanho do vetor de deltas
+  repeated mtc500_u_delta_telemetry_values delta_values = 2;
+}
+
+message mtc500_u_delta_telemetry_values
+{
+  required uint32 version              = 1;
+  required uint32 time_on_blue_level   = 2;
+  required uint32 type                 = 3;
+  required uint32 time_on_red_level    = 4;
+  required uint32 maximum_speed        = 5;
+  required uint32 time_on_yellow_level = 6;
+  required uint32 average_speed        = 7;
+  required uint32 hodometer            = 8;
+  required uint32 interval             = 9;
+  required uint32 time_running         = 10;
+  required uint32 time_on_green_level  = 11;
+  required uint32 moving_time          = 12;
+  required uint32 stopped_time         = 13;
+  required uint32 maximum_rpm          = 14;
+  required uint32 average_rpm          = 15;
+}
+
+message mtc500_u_event_telemetry
+{
+  required uint32 event_size                            = 1; // tamanho do vetor de eventos
+  repeated mtc500_u_event_telemetry_values event_values = 2;
+}
+
+message mtc500_u_event_telemetry_values
+{
+  required uint32 event_type          = 1;
+  required uint32 speed               = 2; 
+  required uint32 rpm                 = 3;
+  required uint32 time                = 4; 
+  required uint32 begin_speed         = 5;
+  required uint32 end_speed           = 6;
+  required uint32 limit               = 7;
+  required uint32 max_rpm             = 8;
+  required uint32 temperature         = 9;
+  required uint32 voltage             = 10;
+  required string ibutton_id          = 11;
+  required uint32 ibutton_family_code = 12;
+}
+
+message mtc500_u_telemetry_flag_state
+{
+	optional bool pressure_oil_failure        = 1;
+	optional bool clutch_pressing_excess      = 2;
+	required bool windshield_wiper_on         = 3;
+	optional bool high_gear_box_st            = 4;
+	optional bool engine_break_st             = 5;
+	optional bool mx100_output_state          = 6;
+	required bool neutral_driving             = 7;
+	required bool ign_no_engine_rotation      = 8;
+	required bool low_gear_time_excess        = 9;
+	required bool speed_excess                = 10;
+	required bool rotation_excess             = 11;
+	optional bool engine_tempetature_override = 12;
+	optional bool alternator_voltage          = 13;
+	required bool engine_on                   = 14;
+	optional bool break_st                    = 15;
+	optional bool clutch_st                   = 16;
+	optional bool oil_pressure_st             = 17;
+	required bool windshield_wiper_st         = 18;
+	optional bool ibutton_presence            = 19;
+	required bool stopped_time_excess         = 20;
+	optional uint32 delta_config_id           = 21;
+	required uint32 flags_value				  = 22;
+}
+
+
+message mtc500_u_telemetry
+{
+    required uint32 protocol_version                            = 1;
+	optional uint32 engine_temperature                          = 2;
+	optional uint32 fuel_level                                  = 3;
+	optional uint32 sensors_count                               = 4;
+	required uint32 time_running                                = 5;
+	required uint32 time_on_blue_level                          = 6;
+	required uint32 time_on_yellow_level                        = 7;
+	required uint32 time_on_green_level                         = 8;
+	required uint32 time_on_red_level                           = 9;
+	required uint32 moving_time                                 = 10;
+	required uint32 stopped_time                                 = 11;
+	required uint32 hodometer                                   = 12;
+	required uint32 speed                                       = 13;
+	required uint32 rpm                                         = 14;
+	optional uint32 ignition_voltage                            = 15;
+    required mtc500_u_telemetry_flag_state telemetry_flag_state = 16;	
+    optional string date                                        = 17;
+	optional mtc500_u_delta_telemetry delta                     = 18;
+	optional mtc500_u_event_telemetry event                     = 19;
+}	
+
+/////////////////// POSITION.ACCELEROMETER_DATA /////////////////////////
+
+message mtc500_u_accelerometer_flags
+{
+  required bool moving = 1;
+  required bool pitching_alarm = 2;
+  required bool rolling_alarm = 3;
+  required bool hard_break = 4;
+  required bool hard_acceleration = 5;
+  required bool trailer = 6;
+  required bool dirt_road = 7;
+}
+
+message mtc500_u_accelerometer
+{
+   required uint32 version                     = 1;
+   required sint32 pitching                    = 2;
+   required uint32 event_number                = 3;
+   required sint32 rolling                     = 4;
+   required mtc500_u_accelerometer_flags flags = 5;      
+}
+
+message mtc500_u_acc_evt_moving
+{
+  required uint32 type = 1;
+  required bool move_type = 2;
+}
+
+message mtc500_u_acc_evt_rolling
+{
+  required uint32 type = 1;
+  required uint32 angle_value     = 2;
+  required uint32 angle_reference = 3;
+}
+
+message mtc500_u_acc_evt_pitching
+{
+  required uint32 type = 1;
+  required uint32 angle_value = 2;
+  required uint32 angle_reference = 3;
+}
+
+message mtc500_u_acc_evt_trailer
+{
+  required uint32 type = 1;
+  required uint32 speed = 2;
+}
+
+message mtc500_u_acc_evt_dirt_road
+{
+  required uint32 type = 1;
+  required uint32 acceleration_z_axis = 2;
+  required uint32 speed = 3;
+}
+
+message mtc500_u_acc_evt_hard_break
+{
+   required uint32 type = 1;
+   required uint32 max_acceleration = 2;
+   required uint32 base_acceleration = 3;
+   required uint32 speed = 4;
+}
+
+message mtc500_u_acc_evt_hard_acceleration
+{
+   required uint32 type = 1;
+   required uint32 max_acceleration = 2;
+   required uint32 base_acceleration = 3;
+   required uint32 speed = 4;
+}
+
+message mtc500_u_accelerometer_data
+{
+  required mtc500_u_accelerometer data = 1;
+  repeated mtc500_u_acc_evt_moving acc_evt_moving  = 2;
+  repeated mtc500_u_acc_evt_rolling acc_evt_rolling  = 3;
+  repeated mtc500_u_acc_evt_pitching acc_evt_pitching  = 4;
+  repeated mtc500_u_acc_evt_trailer acc_evt_trailer  = 5;
+  repeated mtc500_u_acc_evt_dirt_road acc_evt_dirt_road  = 6;
+  repeated mtc500_u_acc_evt_hard_break acc_evt_hard_break  = 7;
+  repeated mtc500_u_acc_evt_hard_acceleration acc_evt_hard_acceleration  = 8;
+}
+
+/////////////////////////////////////////////////////////////////
+///////////////////////// POSITION //////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+message mtc500_u_position
+{
+	required mtc500_u_firmware firmware                 = 1;
+	required mtc500_u_gps_modem gps_modem               = 2;
+	required mtc500_u_hardware_monitor hardware_monitor = 3;
+	required mtc500_u_embedded embedded                 = 4;
+    optional mtc500_u_message data_terminal_message     = 5;    
+    optional mtc500_u_telemetry telemetry               = 6; 
+    optional string free_data                           = 7;
+	optional mtc500_u_accelerometer_data accelerometer_data     = 8;
+}
+
+////////////////////////// SETUP /////////////////////////////////
+message mtc500_u_setup_header
+{
+  required uint32 serial                       = 1;
+  required string timestamp                    = 2; 
+  required string firmware_version             = 3;
+  required uint32 next_read_address            = 4;
+  required uint32 start_read_block_memory      = 5;
+  required uint32 pointer_block_write_memory   = 6;
+  required uint32 pointer_address_write_memory = 7; 
+}
+
+
+message mtc500_u_config
+{
+  required string dtmf_password                                      = 1;  
+  required uint32 gprs_store_transmission_interval                   = 2;
+  required uint32 delay_turn_off_gps_after_turn_off_ignition         = 3;
+  required uint32 dtmf_transmission_interval                         = 4;
+  required uint32 sleep_mode_interval                                = 5;
+  required uint32 version_perif_text                                 = 6;
+  required uint32 version_perif_ascii                               =  7;
+  required string pin                                                = 8;
+  required string repair_schedule_1_hour                             = 9;
+  required string repair_schedule_1_minute                           = 10;
+  required string repair_schedule_1_days                             = 11;
+  required string repair_schedule_2_hour                             = 12;
+  required string repair_schedule_2_minute                           = 13;
+  required string repair_schedule_2_days                             = 14;
+  required string repair_schedule_3_hour                             = 15;
+  required string repair_schedule_3_minute                           = 16;
+  required string repair_schedule_3_days                             = 17;
+  required string dtmf_schedule_1_hour                               = 18;
+  required string dtmf_schedule_1_minute                             = 19;
+  required string dtmf_schedule_1_days                               = 20;
+  required uint32 meters_interval_transmit_stored_gprs               = 21;
+  required uint32 meters_interval_transmit_dmtf_sms                  = 22;
+  required double min_voltage                                        = 23;
+  required double max_voltage                                        = 24;
+  required string primary_ip                                         = 25;
+  required string secondary_ip                                       = 26;
+  required uint32 min_buffer_size_sms_transmission                   = 27;
+  required uint32 dial_up_connection_time_out                        = 28;
+  required uint32 odometer_conversion_param                          = 29;
+  required uint32 gprs_port                                          = 30;
+  required string apn_extension                                      = 31;
+  required uint32 position_index                                     = 32;
+  required string gmt_interval                                       = 33;
+  required uint32 route_filter                                       = 34;
+  required string maintance_ip                                       = 35;
+  required uint32 stopped_time_limit                                 = 36;
+  required uint32 last_records_send_gprs                             = 37;
+  required string apn                                                = 38;
+  required uint32 auxiliar_serial_id                                 = 39;
+
+        
+}
+
+message mtc500_u_events
+{
+  required bool dtmf_transmit_activate_input_2                         = 1;
+  required bool dtmf_transmit_activate_input_3                         = 2;
+  required bool dtmf_transmit_activate_input_4                         = 3;
+  required bool dtmf_transmit_activate_ignition                        = 4;                
+  required bool dtmf_transmit_or_gprs_store_transmit_with_ignition_off = 5;
+  required bool dtmf_enable_listen_microphone_only_in_panic            = 6;
+  required bool dtmf_transmit_velocity_exceed                          = 7;
+  required bool dtmf_transmit_alert_voltage_temperature                = 8;
+}
+
+message mtc500_u_modem_parameters
+{
+  required bool sms_transmit              = 1;
+  required bool base_modem_emulate        = 2;
+  required bool fill_buffer_transmit_sms  = 3;
+  required bool voice_call_input_4        = 4;
+  required bool no_cellphone_active_input_4_or_charge_battery_with_ignition_on = 5;
+  required bool gprs_transmit             = 6;
+  required bool r278d_protocol            = 7;
+  required bool modem_boot_after_ignition = 8;
+  required bool input_config_input2_in_odometer        = 9;
+  required bool input_config_panic_activating_input2   = 10;
+  required bool input_config_panic_activating_input3   = 11;
+  required bool input_config_panic_activating_input4   = 12;
+  required bool input_config_input3_analog             = 13;
+  required bool input_config_input4_analog             = 14;
+  required bool input_config_panic_deactivating_input2 = 15;
+  required bool input_config_record_top_minute         = 16;
+}
+
+message mtc500_u_internal_var
+{
+  required bool secondary_ip = 1;
+}
+
+message mtc500_u_aux_port
+{
+  required bool external_gps                                  = 1;
+  required bool emulate_sms_modem_free_data_received          = 2;
+  required bool send_turn_on_off_command_to_display           = 3;
+  required bool emulate_gprs_modem_free_data_received         = 4;
+  required bool send_sms_protocol_when_transmit_gprs          = 5;
+  required bool comm_protocol_8_n_2                           = 6;
+  required uint32 port_baud                                   = 7;
+}
+
+message mtc500_u_transmit_information
+{
+  required bool waypoint                    = 1;
+  required bool lat_long                    = 2;
+  required bool velocity_direction          = 3;
+  required bool mechanical_events           = 4;
+  required bool counters                    = 5;
+  required bool voltage_temperature         = 6;
+  required bool odometer                    = 7;
+  required bool hourmeter                   = 8;
+}
+
+message mtc500_u_setup
+{
+  required mtc500_u_setup_header header          = 1;
+  required mtc500_u_config config                = 2;
+  required mtc500_u_events events                = 3;
+  required mtc500_u_modem_parameters modem_parm  = 4;
+  required mtc500_u_internal_var internal_var    = 5;
+  required mtc500_u_aux_port aux_port            = 6;
+  required mtc500_u_transmit_information tx_info = 7;
+  optional string bin_data						 = 8;
+}
+
+
